@@ -8,6 +8,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.smallraw.time.AppExecutors;
 import com.smallraw.time.db.converter.DateConverter;
 import com.smallraw.time.db.dao.MemorialDao;
 import com.smallraw.time.db.entity.MemorialEntity;
@@ -20,11 +21,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract MemorialDao memorialDao();
 
-    public static AppDatabase getInstance(final Context context) {
+    public static AppDatabase getInstance(final Context context, final AppExecutors appExecutors) {
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext());
+                    sInstance = buildDatabase(context.getApplicationContext(), appExecutors);
                     sInstance.updateDatabaseCreated(context.getApplicationContext());
                 }
             }
@@ -32,7 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext) {
+    private static AppDatabase buildDatabase(final Context appContext, AppExecutors appExecutors) {
         return Room.databaseBuilder(appContext, AppDatabase.class, AppDatabase.DATABASE_NAME)
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
