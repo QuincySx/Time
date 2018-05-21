@@ -20,33 +20,35 @@ public class MemorialEntity {
     private String description;
     @ColumnInfo(name = "time")
     private Date time;
+    @ColumnInfo(name = "type")//0 累计日  1 倒数日
+    private int type;
+    @ColumnInfo(name = "color")
+    private String color;
+    @ColumnInfo(name = "beginTime")
+    private Date beginTime;
+    @ColumnInfo(name = "endTime")
+    private Date endTime;
     @ColumnInfo(name = "createTime")
     private Date createTime;
     @ColumnInfo(name = "strike")
     private boolean strike;
+    @ColumnInfo(name = "archive")
+    private boolean archive;
 
     public MemorialEntity() {
     }
 
     @Ignore
-    public MemorialEntity(String name, String description, Date time, Date createTime, boolean
-            strike) {
+    public MemorialEntity(String name, String description, Date time, int type, String color,
+                          Date beginTime, Date endTime, Date createTime) {
         this.name = name;
         this.description = description;
         this.time = time;
+        this.type = type;
+        this.color = color;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
         this.createTime = createTime;
-        this.strike = strike;
-    }
-
-    @Ignore
-    public MemorialEntity(Long id, String name, String description, Date time, Date createTime,
-                          boolean strike) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.time = time;
-        this.createTime = createTime;
-        this.strike = strike;
     }
 
     public Long getId() {
@@ -81,6 +83,38 @@ public class MemorialEntity {
         this.time = time;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Date getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -97,6 +131,14 @@ public class MemorialEntity {
         this.strike = strike;
     }
 
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
+    }
+
     @Override
     public String toString() {
         return "MemorialEntity{" +
@@ -104,8 +146,13 @@ public class MemorialEntity {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", time=" + time +
+                ", type=" + type +
+                ", color='" + color + '\'' +
+                ", beginTime=" + beginTime +
+                ", endTime=" + endTime +
                 ", createTime=" + createTime +
                 ", strike=" + strike +
+                ", archive=" + archive +
                 '}';
     }
 }
