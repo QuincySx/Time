@@ -6,23 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff9f9f9"
-    tools:context=".ui.MainActivity">
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="start">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    </android.support.constraint.ConstraintLayout>
+    tools:context=".ui.MainActivity"
+    tools:openDrawer="start">
 
     <LinearLayout
         android:id="@+id/content"
@@ -78,10 +63,130 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:fadeScrollbars="false"
-            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="26dp"/>
+            android:layout_marginTop="26dp"
+            android:fadeScrollbars="false"
+            android:overScrollMode="never"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_slip"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="80dp"
+                    android:text="归档夹"
+                    android:textColor="#484848"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="回收站"
+                    android:textColor="#484848"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="关于"
+                    android:textColor="#484848"
+                    android:textSize="18sp"/>
+
+                <RadioGroup
+                    android:id="@+id/rg_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="115dp">
+                    <RadioButton
+                        android:id="@+id/rb_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="true"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="全部显示"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                    <RadioButton
+                        android:id="@+id/rb_reciprocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:button="@null"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="仅倒数日"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                    <RadioButton
+                        android:id="@+id/rb_accumulative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:button="@null"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="仅累计日"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/rg_sort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="48dp">
+                    <RadioButton
+                        android:id="@+id/rb_def"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:checked="true"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="默认排序"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                    <RadioButton
+                        android:id="@+id/rb_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:button="@null"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="日期排序"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                    <RadioButton
+                        android:id="@+id/rb_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:button="@null"
+                        android:stateListAnimator="@animator/selector_main_slip_item"
+                        android:text="颜色排序"
+                        android:textColor="@color/selector_main_slip_item_color"
+                        android:textSize="14sp"/>
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
