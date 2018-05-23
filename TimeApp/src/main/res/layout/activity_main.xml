@@ -82,7 +82,9 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="26pt"/>
+            android:layout_marginTop="26pt"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
     </LinearLayout>
 
     <LinearLayout
