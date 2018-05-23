@@ -42,7 +42,7 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
 
         val drawable = GradientDrawable()
         drawable.setColor(Color.parseColor("#${item.color}"))
-        drawable.setCornerRadius((6 * scale + 0.5f))
+        drawable.setCornerRadius((8 * scale + 0.5f))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder.itemView.background = drawable
