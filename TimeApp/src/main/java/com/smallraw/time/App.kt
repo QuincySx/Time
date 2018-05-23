@@ -1,8 +1,8 @@
 package com.smallraw.time
 
 import android.app.Application
+import com.smallraw.time.base.RudenessScreenHelper
 import com.smallraw.time.db.AppDatabase
-
 
 
 public class App : Application() {
@@ -13,6 +13,7 @@ public class App : Application() {
         super.onCreate()
         mApp = this;
         mAppExecutors = AppExecutors()
+        RudenessScreenHelper(this, 360F).activate()
     }
 
     fun getInstance(): App {
