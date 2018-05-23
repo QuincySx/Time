@@ -1,64 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff9f9f9"
-    tools:context=".ui.MainActivity"
-    tools:openDrawer="start">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24pt"
         android:orientation="vertical">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="158pt"
-            android:background="#ffffffff">
+            android:layout_height="157pt"
+            android:background="#ffffffff"
+            android:paddingTop="23pt">
+
             <ImageView
                 android:id="@+id/img_weather"
-                android:layout_width="57pt"
-                android:layout_height="46pt"
+                android:layout_width="80pt"
+                android:layout_height="80pt"
                 android:layout_marginLeft="31pt"
-                android:layout_marginTop="51pt"
+                android:layout_marginTop="30pt"
                 android:background="#cccccc"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35pt"
-                android:layout_marginTop="40pt"
+                android:layout_marginLeft="43pt"
+                android:layout_marginTop="39pt"
                 android:text="26℃"
                 android:textColor="#484848"
                 android:textSize="36sp"
                 app:layout_constraintLeft_toRightOf="@id/img_weather"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20pt"
+                android:layout_marginLeft="10pt"
                 android:text="5月11日"
                 android:textColor="#484848"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@id/img_weather"
-                app:layout_constraintTop_toBottomOf="@+id/tv_temperature"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
+
             <TextView
                 android:id="@+id/tv_week"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13pt"
-                android:text="26℃"
+                android:layout_marginLeft="10pt"
+                android:text="周六"
                 android:textColor="#484848"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@id/tv_date"
-                app:layout_constraintTop_toBottomOf="@+id/tv_temperature"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
+            <TextView
+                android:id="@+id/tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10pt"
+                android:text="晴"
+                android:textColor="#484848"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toRightOf="@id/tv_week"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -67,7 +80,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="26pt"
             android:fadeScrollbars="false"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,15 +90,18 @@
         android:layout_gravity="start"
         android:background="#FFFFFF"
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +109,8 @@
                     android:layout_marginTop="80pt"
                     android:text="归档夹"
                     android:textColor="#484848"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,7 +118,8 @@
                     android:layout_marginTop="20pt"
                     android:text="回收站"
                     android:textColor="#484848"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,13 +127,14 @@
                     android:layout_marginTop="20pt"
                     android:text="关于"
                     android:textColor="#484848"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/rg_display"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="112pt">
+
                     <RadioButton
                         android:id="@+id/rb_all"
                         android:layout_width="match_parent"
@@ -128,7 +147,8 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="全部显示"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
                     <RadioButton
                         android:id="@+id/rb_reciprocal"
                         android:layout_width="match_parent"
@@ -141,7 +161,8 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅倒数日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
                     <RadioButton
                         android:id="@+id/rb_accumulative"
                         android:layout_width="match_parent"
@@ -154,7 +175,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅累计日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </RadioGroup>
 
                 <RadioGroup
@@ -162,6 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="46pt">
+
                     <RadioButton
                         android:id="@+id/rb_def"
                         android:layout_width="match_parent"
@@ -174,7 +196,8 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="默认排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
                     <RadioButton
                         android:id="@+id/rb_time"
                         android:layout_width="match_parent"
@@ -187,7 +210,8 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="日期排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
                     <RadioButton
                         android:id="@+id/rb_color"
                         android:layout_width="match_parent"
@@ -200,7 +224,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="颜色排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </RadioGroup>
             </LinearLayout>
         </ScrollView>
