@@ -33,17 +33,17 @@ class TaskListFragment : BaseFragment() {
     }
 
     private fun initData() {
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "EE386D", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 1, "139EED", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "FFC529", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "EE386D", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 1, "9092A5", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "FFC529", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "EE386D", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 1, "139EED", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "FFC529", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "EE386D", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 1, "9092A5", Date(), Date(), Date()))
-        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", Date(), 0, "FFC529", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "139EED", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "9092A5", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "139EED", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "9092A5", Date(), Date(), Date()))
+        mMemorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
     }
 }

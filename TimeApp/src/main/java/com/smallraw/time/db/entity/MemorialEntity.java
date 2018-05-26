@@ -18,8 +18,6 @@ public class MemorialEntity {
     private String name;
     @ColumnInfo(name = "description")
     private String description;
-    @ColumnInfo(name = "time")
-    private Date time;
     @ColumnInfo(name = "type")//0 累计日  1 倒数日
     private int type;
     @ColumnInfo(name = "color")
@@ -39,11 +37,10 @@ public class MemorialEntity {
     }
 
     @Ignore
-    public MemorialEntity(String name, String description, Date time, int type, String color,
+    public MemorialEntity(String name, String description,int type, String color,
                           Date beginTime, Date endTime, Date createTime) {
         this.name = name;
         this.description = description;
-        this.time = time;
         this.type = type;
         this.color = color;
         this.beginTime = beginTime;
@@ -73,14 +70,6 @@ public class MemorialEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
     }
 
     public int getType() {
@@ -145,7 +134,6 @@ public class MemorialEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", time=" + time +
                 ", type=" + type +
                 ", color='" + color + '\'' +
                 ", beginTime=" + beginTime +

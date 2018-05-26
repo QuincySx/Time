@@ -45,7 +45,7 @@
                     android:layout_marginTop="39pt"
                     android:text="26℃"
                     android:textColor="#484848"
-                    android:textSize="36sp"
+                    android:textSize="36pt"
                     app:layout_constraintLeft_toRightOf="@id/img_weather"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +56,7 @@
                     android:layout_marginLeft="10pt"
                     android:text="5月11日"
                     android:textColor="#484848"
-                    android:textSize="14sp"
+                    android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/img_weather"
                     app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
 
@@ -67,7 +67,7 @@
                     android:layout_marginLeft="10pt"
                     android:text="周六"
                     android:textColor="#484848"
-                    android:textSize="14sp"
+                    android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/tv_date"
                     app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
 
@@ -78,7 +78,7 @@
                     android:layout_marginLeft="10pt"
                     android:text="晴"
                     android:textColor="#484848"
-                    android:textSize="14sp"
+                    android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/tv_week"
                     app:layout_constraintTop_toBottomOf="@+id/tv_temperature" />
             </android.support.constraint.ConstraintLayout>
@@ -118,7 +118,7 @@
                     android:layout_marginTop="80pt"
                     android:text="归档夹"
                     android:textColor="#484848"
-                    android:textSize="18sp" />
+                    android:textSize="18pt" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                     android:layout_marginTop="20pt"
                     android:text="回收站"
                     android:textColor="#484848"
-                    android:textSize="18sp" />
+                    android:textSize="18pt" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,10 +136,10 @@
                     android:layout_marginTop="20pt"
                     android:text="关于"
                     android:textColor="#484848"
-                    android:textSize="18sp" />
+                    android:textSize="18pt" />
 
                 <RadioGroup
-                    android:id="@+id/rg_display"
+                    android:id="@+id/rg_diptlay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="112pt">
@@ -156,7 +156,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="全部显示"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_reciprocal"
@@ -170,7 +170,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅倒数日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_accumulative"
@@ -184,7 +184,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅累计日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
                 </RadioGroup>
 
                 <RadioGroup
@@ -205,7 +205,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="默认排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_time"
@@ -219,7 +219,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="日期排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_color"
@@ -233,7 +233,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="颜色排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14sp" />
+                        android:textSize="14pt" />
                 </RadioGroup>
             </LinearLayout>
         </ScrollView>

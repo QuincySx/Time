@@ -1,5 +1,6 @@
 package com.smallraw.time.ui.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.smallraw.time.R
 import com.smallraw.time.db.entity.MemorialEntity
+import com.smallraw.time.utils.dateFormat
+import com.smallraw.time.utils.getWeekOfDate
 import org.jetbrains.annotations.NotNull
 
 class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEntity>) : RecyclerView.Adapter<MemorialAdapter.ViewHolder>() {
@@ -22,12 +25,19 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         return data.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context;
         val item = data.get(position)
 
+        if (item.type == 0) {
+            holder.tvWeek.text = getWeekOfDate(context, item.beginTime)
+        } else {
+            holder.tvWeek.text = "至"
+        }
         holder.tvContent.text = item.name
-        holder.tvTime.text = item.beginTime.toString()
+        holder.tvTime.text = dateFormat(item.beginTime)
+
         holder.tvDay.text = "天"
         if (item.type == 0) {
             holder.tvType.text = "累计日"
@@ -54,6 +64,7 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvContent: TextView
         val tvTime: TextView
+        val tvWeek: TextView
         val tvType: TextView
         val tvDay: TextView
         val tvNumber: TextView
@@ -62,6 +73,7 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         init {
             tvContent = itemView.findViewById(R.id.tv_content)
             tvTime = itemView.findViewById(R.id.tv_time)
+            tvWeek = itemView.findViewById(R.id.tv_week)
             tvType = itemView.findViewById(R.id.tv_type)
             tvDay = itemView.findViewById(R.id.tv_day)
             tvNumber = itemView.findViewById(R.id.tv_number)
