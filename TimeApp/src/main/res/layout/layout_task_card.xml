@@ -6,7 +6,7 @@
     android:layout_width="270pt"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    app:cardCornerRadius="4pt">
+    app:cardCornerRadius="6pt">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,7 +103,7 @@
             android:layout_marginLeft="30pt"
             android:layout_marginRight="30pt"
             android:layout_marginTop="5pt"
-            android:lineSpacingExtra="8pt"
+            android:lineSpacingExtra="3pt"
             android:text="这次你离开了没有像以前那样说再见 再见也tmd只是再见 我们之间从来没有想象的那么接近 只是两棵树的距离 你是否还记得山阴路我八楼的房间 房间里唱歌的日日夜夜 那么热的夏天你看着外面 看着你在消逝的容颜 我多么想念你走在我身边的样子"
             android:textColor="#FFFFFF"
             android:textSize="8pt"
