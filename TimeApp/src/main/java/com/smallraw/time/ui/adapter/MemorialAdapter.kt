@@ -16,6 +16,8 @@ import com.smallraw.time.utils.getWeekOfDate
 import org.jetbrains.annotations.NotNull
 
 class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEntity>) : RecyclerView.Adapter<MemorialAdapter.ViewHolder>() {
+    public var onItemLongClickListener: OnItemLongClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(res, parent, false)
         return ViewHolder(view);
@@ -58,6 +60,12 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
             holder.itemView.background = drawable
         } else {
             holder.itemView.setBackgroundDrawable(drawable)
+        }
+        holder.itemView.setOnLongClickListener {
+            if (onItemLongClickListener != null) {
+                onItemLongClickListener!!.onLongClick(holder.adapterPosition, holder)
+            }
+            false
         }
     }
 

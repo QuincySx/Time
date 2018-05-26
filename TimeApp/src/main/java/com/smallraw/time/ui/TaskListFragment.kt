@@ -1,7 +1,9 @@
 package com.smallraw.time.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import com.smallraw.time.R
 import com.smallraw.time.base.BaseFragment
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.adapter.MemorialAdapter
+import com.smallraw.time.ui.adapter.OnItemLongClickListener
 import kotlinx.android.synthetic.main.fragment_task_list.*
 import java.util.*
 
@@ -25,6 +28,17 @@ class TaskListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        setAdapterItemListener()
+    }
+
+    private fun setAdapterItemListener() {
+        mMemorialAdapter.onItemLongClickListener = object : OnItemLongClickListener {
+            override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder): Boolean {
+                val intent = Intent(this@TaskListFragment.context, PreviewTaskActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
     }
 
     private fun initRecyclerView() {
