@@ -3,7 +3,9 @@ package com.smallraw.time.base
 import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.ColorInt
+import android.support.annotation.DrawableRes
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.res.ResourcesCompat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -34,7 +36,7 @@ abstract class BaseTitleBarActivity : BaseActivity() {
 
         mImgTitleBarLeft.setOnClickListener(selfLeftClickListener())
         mTvTitleBarContent.setText(selfTitleContent())
-        mLayoutTitleBar.setBackgroundColor(selfBackgroundColor())
+        mLayoutTitleBar.setBackgroundColor(selfTitleBackgroundColor())
     }
 
     protected fun addRightView(view: View) {
@@ -42,7 +44,7 @@ abstract class BaseTitleBarActivity : BaseActivity() {
     }
 
     @ColorInt
-    protected open fun selfBackgroundColor(): Int {
+    protected open fun selfTitleBackgroundColor(): Int {
         return Color.WHITE
     }
 
@@ -72,5 +74,10 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         mLayoutContent.removeAllViews()
         mLayoutContent.addView(view, params)
         onContentChanged()
+    }
+
+    protected fun setTitleBarLeftImage(@DrawableRes res: Int) {
+        val drawable = ResourcesCompat.getDrawable(resources, res, null)
+        mImgTitleBarLeft.setImageDrawable(drawable)
     }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="35pt"
+    android:gravity="center_vertical|right">
+
+    <TextView
+        android:id="@+id/tv_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12pt"
+        android:text="晴 · 26℃"
+        android:textColor="#FFFFFF"
+        android:textSize="14pt"/>
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12pt"
+        android:text="5月11日"
+        android:textColor="#FFFFFF"
+        android:textSize="14pt"/>
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12pt"
+        android:text="周二"
+        android:textColor="#FFFFFF"
+        android:textSize="14pt"/>
+</LinearLayout>

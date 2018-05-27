@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.view.View
 import com.smallraw.time.R
-import com.smallraw.time.R.id.*
 import com.smallraw.time.base.BaseActivity
 import com.smallraw.time.ui.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +22,7 @@ class MainActivity : BaseActivity() {
     private fun initViewPager() {
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragment(TaskListFragment())
-        viewPagerAdapter.addFragment(AddTaskFragment())
+        viewPagerAdapter.addFragment(AddTaskOptionFragment())
         view_pager.adapter = viewPagerAdapter
     }
 

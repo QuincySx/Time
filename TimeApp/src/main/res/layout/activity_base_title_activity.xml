@@ -17,7 +17,7 @@
             android:layout_height="35pt"
             android:layout_marginBottom="9pt"
             android:layout_marginLeft="8pt"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_back_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
         <TextView

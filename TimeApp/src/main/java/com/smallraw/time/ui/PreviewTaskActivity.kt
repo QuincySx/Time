@@ -26,7 +26,7 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         val right = ImageView(this)
         val layoutParams = ViewGroup.LayoutParams(RudenessScreenHelper.pt2px(this, 35F).toInt(), RudenessScreenHelper.pt2px(this, 35F).toInt())
         right.layoutParams = layoutParams
-        right.setBackgroundResource(R.drawable.ic_setting)
+        right.setBackgroundResource(R.drawable.ic_setting_black)
         return right;
     }
 

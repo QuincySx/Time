@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_reciprocal"
         android:layout_width="238pt"
         android:layout_height="77pt"
         android:layout_marginTop="60pt"
@@ -46,6 +48,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_accumulative"
         android:layout_width="238pt"
         android:layout_height="77pt"
         android:layout_marginTop="36pt"
