@@ -1,22 +1,16 @@
 package com.smallraw.time.base
 
 import android.app.Activity
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
-import com.smallraw.time.R
-import qiu.niorgai.StatusBarCompat
 
 
 abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
@@ -29,23 +23,12 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (useStatusBar()) {
-            val color = ResourcesCompat.getColor(resources, selfStatusBarColor(), null)
-            setStatusBarColor(color)
-        }
-    }
-
-    open fun useStatusBar() = true
-
-    @ColorRes
-    open fun selfStatusBarColor() = R.color.white
-
-    protected fun setStatusBarColor(@ColorInt color: Int) {
-        StatusBarCompat.setStatusBarColor(this, color)
-        if (color == Color.WHITE) {
+        if (useStatusBarLightMode()) {
             StatusBarLightMode(this)
         }
     }
+
+    open fun useStatusBarLightMode() = true
 
     fun showPrompt(@StringRes res: Int) {
         showPrompt(getString(res))

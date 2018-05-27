@@ -53,8 +53,9 @@ class AddTaskActivity : BaseTitleBarActivity() {
         setTitleBarLeftImage(R.drawable.ic_back_white)
         setContentView(R.layout.activity_add_task)
         initTitleRight()
-
     }
+
+    override fun useStatusBarLightMode() = false
 
     private fun initTitleRight() {
         val rightView = LayoutInflater.from(this).inflate(R.layout.layout_add_task_title_content, null, false)
