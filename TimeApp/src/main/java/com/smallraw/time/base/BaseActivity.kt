@@ -35,10 +35,10 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
     }
 
     fun showPrompt(msg: String) {
-        val msg = Message.obtain()
-        msg.what = HANDLER_MSG_PROMPT
-        msg.obj = msg
-        mHandler.sendMessage(msg)
+        val message = Message.obtain()
+        message.what = HANDLER_MSG_PROMPT
+        message.obj = msg
+        mHandler.sendMessage(message)
     }
 
     override fun handleMessage(msg: Message?): Boolean {
@@ -74,7 +74,7 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
         var result = false
         if (window != null) {
             try {
-                val lp = window!!.getAttributes()
+                val lp = window.getAttributes()
                 val darkFlag = WindowManager.LayoutParams::class.java
                         .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
                 val meizuFlags = WindowManager.LayoutParams::class.java
@@ -89,7 +89,7 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
                     value = value and bit.inv()
                 }
                 meizuFlags.setInt(lp, value)
-                window!!.setAttributes(lp)
+                window.setAttributes(lp)
                 result = true
             } catch (e: Exception) {
 
@@ -104,10 +104,9 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
         if (window != null) {
             val clazz = window.javaClass
             try {
-                var darkModeFlag = 0
                 val layoutParams = Class.forName("android.view.MiuiWindowManager\$LayoutParams")
                 val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
-                darkModeFlag = field.getInt(layoutParams)
+                var darkModeFlag = field.getInt(layoutParams)
                 val extraFlagField = clazz.getMethod("setExtraFlags", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType)
                 if (dark) {
                     extraFlagField.invoke(window, darkModeFlag, darkModeFlag)//状态栏透明且黑色字体
