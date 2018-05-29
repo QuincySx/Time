@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout
 import android.view.View
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseActivity
+import com.smallraw.time.ui.about.AboutActivity
 import com.smallraw.time.ui.adapter.ViewPagerAdapter
 import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
@@ -65,7 +66,7 @@ class MainActivity : BaseActivity() {
                 intent = Intent(this, RecycleBinActivity::class.java)
             }
             R.id.tv_about -> {
-
+                intent = Intent(this, AboutActivity::class.java)
             }
         }
         if (intent != null) {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.about.AboutActivity">
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="31pt"
+        android:layout_height="53pt"
+        android:layout_marginTop="67pt"
+        android:background="#cccccc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24pt"
+        android:text="@string/app_name"
+        android:textColor="#484848"
+        android:textSize="14pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_logo"
+        tools:text="记得"/>
+    <TextView
+        android:id="@+id/tv_app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4pt"
+        android:textColor="#BBBBBB"
+        android:textSize="9pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_name"/>
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50pt"
+        android:layout_marginRight="50pt"
+        android:layout_marginTop="20pt"
+        android:text="这次你离开了没有像以前那样说再见 再见也tmd只是再见我们之间从来没有想象的那么接近 只是两棵树的距离你是否还记得山阴路我八楼的房间 房间"
+        android:textColor="#484848"
+        android:textSize="13pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_version"/>
+
+    <TextView
+        android:id="@+id/tv_contact_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="55pt"
+        android:layout_marginTop="65pt"
+        android:text="联系我们"
+        android:textColor="#4F78FF"
+        android:textSize="14pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_about"/>
+
+    <TextView
+        android:id="@+id/tv_star_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="55pt"
+        android:layout_marginTop="18pt"
+        android:text="关注我们"
+        android:textColor="#4F78FF"
+        android:textSize="14pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_contact_us"/>
+
+    <TextView
+        android:id="@+id/tv_donation_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="55pt"
+        android:layout_marginTop="18pt"
+        android:text="捐助我们"
+        android:textColor="#4F78FF"
+        android:textSize="14pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_star_us"/>
+</android.support.constraint.ConstraintLayout>
