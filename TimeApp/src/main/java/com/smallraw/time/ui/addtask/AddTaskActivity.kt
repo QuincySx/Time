@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.ui.taskinfo.TaskInfoActivity
 
 class AddTaskActivity : BaseTitleBarActivity() {
     companion object {
@@ -77,5 +79,10 @@ class AddTaskActivity : BaseTitleBarActivity() {
             parseColor = Color.parseColor("#EE386D")
         }
         return parseColor
+    }
+
+    fun onClick(view: View) {
+        val intent = Intent(this, TaskInfoActivity::class.java)
+        startActivity(intent)
     }
 }
