@@ -1,4 +1,4 @@
-package com.smallraw.time.ui
+package com.smallraw.time.ui.main
 
 import android.content.Intent
 import android.os.Bundle

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EE386D"
-    tools:context=".ui.AddTaskActivity">
+    tools:context=".ui.addtask.AddTaskActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/layout_info"
