@@ -1,4 +1,4 @@
-package com.smallraw.time.ui.sharecard
+package com.smallraw.time.ui.recycleBin
 
 import android.os.Bundle
 import android.view.View
@@ -8,12 +8,16 @@ import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
 
-class ShareCardActivity : BaseTitleBarActivity() {
+class RecycleBinActivity : BaseTitleBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_share_card)
+        setContentView(R.layout.activity_recycle_bin)
         initTitleRight()
+    }
+
+    override fun selfTitleContent(): String {
+        return getString(R.string.title_recycle_bin)
     }
 
     private fun initTitleRight() {
@@ -21,15 +25,11 @@ class ShareCardActivity : BaseTitleBarActivity() {
         addRightView(right)
     }
 
-    override fun selfTitleContent(): String {
-        return getString(R.string.title_share_card)
-    }
-
     private fun newTitleRightView(): View {
         val right = ImageView(this)
         val layoutParams = ViewGroup.LayoutParams(RudenessScreenHelper.pt2px(this, 35F).toInt(), RudenessScreenHelper.pt2px(this, 35F).toInt())
         right.layoutParams = layoutParams
-        right.setBackgroundResource(R.drawable.ic_share_black)
+        right.setBackgroundResource(R.drawable.ic_smash_black)
         return right;
     }
 }

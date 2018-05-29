@@ -1,5 +1,6 @@
 package com.smallraw.time.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
@@ -7,6 +8,8 @@ import android.view.View
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseActivity
 import com.smallraw.time.ui.adapter.ViewPagerAdapter
+import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
+import com.smallraw.time.ui.recycleBin.RecycleBinActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -52,5 +55,21 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    fun onDrawerClick(view: View) {
+        var intent: Intent? = null
+        when (view.id) {
+            R.id.tv_archiving_clip -> {
+                intent = Intent(this, ArchivingClipActivity::class.java)
+            }
+            R.id.tv_recycle_bin -> {
+                intent = Intent(this, RecycleBinActivity::class.java)
+            }
+            R.id.tv_about -> {
 
+            }
+        }
+        if (intent != null) {
+            startActivity(intent)
+        }
+    }
 }

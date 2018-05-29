@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Time</string>
     <string name="title_share_card">分享</string>
-
+    <string name="title_recycle_bin">回收站</string>
+    <string name="title_archiving_clip">归档夹</string>
 </resources>

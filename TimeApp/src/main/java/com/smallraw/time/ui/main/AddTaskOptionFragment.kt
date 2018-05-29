@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseFragment
-import com.smallraw.time.ui.addtask.AddTaskActivity
+import com.smallraw.time.ui.addTask.AddTaskActivity
 import kotlinx.android.synthetic.main.fragment_add_task_option.*
 
 class AddTaskOptionFragment : BaseFragment(), View.OnClickListener {

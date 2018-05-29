@@ -1,4 +1,4 @@
-package com.smallraw.time.ui.addtask
+package com.smallraw.time.ui.addTask
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
-import com.smallraw.time.ui.taskinfo.TaskInfoActivity
+import com.smallraw.time.ui.taskInfo.TaskInfoActivity
 
 class AddTaskActivity : BaseTitleBarActivity() {
     companion object {

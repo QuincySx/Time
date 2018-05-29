@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EE386D"
-    tools:context=".ui.taskinfo.TaskInfoActivity">
+    tools:context=".ui.taskInfo.TaskInfoActivity">
     <TextView
         android:id="@+id/tv_content_hint"
         android:layout_width="wrap_content"

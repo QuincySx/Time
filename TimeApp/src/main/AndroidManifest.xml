@@ -21,11 +21,15 @@
         </activity>
         <activity android:name=".ui.main.PreviewTaskActivity">
         </activity>
-        <activity android:name=".ui.addtask.AddTaskActivity">
+        <activity android:name=".ui.addTask.AddTaskActivity">
         </activity>
-        <activity android:name=".ui.taskinfo.TaskInfoActivity">
+        <activity android:name=".ui.taskInfo.TaskInfoActivity">
         </activity>
-        <activity android:name=".ui.sharecard.ShareCardActivity">
+        <activity android:name=".ui.shareCard.ShareCardActivity">
+        </activity>
+        <activity android:name=".ui.recycleBin.RecycleBinActivity">
+        </activity>
+        <activity android:name=".ui.archivingClip.ArchivingClipActivity">
         </activity>
     </application>
 
