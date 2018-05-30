@@ -19,7 +19,7 @@ public class AppExecutors {
         this.mMainThread = mainThread
     }
 
-    constructor () : this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
+    constructor () : this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()),
             MainThreadExecutor())
 
     fun diskIO(): Executor {

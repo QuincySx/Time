@@ -4,9 +4,10 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.database.Cursor;
 
 import com.smallraw.time.db.entity.MemorialEntity;
+
+import java.util.List;
 
 @Dao
 public interface MemorialDao {
@@ -17,13 +18,16 @@ public interface MemorialDao {
     long insert(MemorialEntity memorialEntity);
 
     @Insert
-    long insertAll(MemorialEntity[] memorialEntity);
+    List<Long> insertAll(MemorialEntity[] memorialEntity);
 
     @Query("SELECT * FROM memorial")
-    Cursor selectAll();
+    List<MemorialEntity> selectAll();
+
+    @Query("SELECT * FROM memorial WHERE strike = 0 AND archive = 0")
+    List<MemorialEntity> selectActive();
 
     @Query("SELECT * FROM memorial WHERE id = :id")
-    Cursor selectById(long id);
+    MemorialEntity selectById(long id);
 
     @Update
     int update(MemorialEntity memorialEntity);

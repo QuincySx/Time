@@ -14,6 +14,8 @@ import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
 import com.smallraw.time.utils.getWeekOfDate
 import org.jetbrains.annotations.NotNull
+import java.util.*
+
 
 class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEntity>) : RecyclerView.Adapter<MemorialAdapter.ViewHolder>() {
     public var onItemLongClickListener: OnItemLongClickListener? = null
@@ -43,19 +45,26 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         holder.tvTime.text = dateFormat(item.beginTime)
 
         holder.tvDay.text = "天"
+        val days = ((Date().getTime() - item.createTime.getTime()) / (1000 * 3600 * 24)) as Long
+        holder.tvNumber.text = "${Math.abs(days)}"
+
         if (item.type == 0) {
             holder.tvType.text = "累计日"
             holder.tvTypeHint.text = "累计"
         } else {
+            holder.tvNumber.text = "2"
             holder.tvType.text = "倒数日"
-            holder.tvTypeHint.text = "剩余"
+            if (days < 0) {
+                holder.tvTypeHint.text = "已过"
+            } else {
+                holder.tvTypeHint.text = "剩余"
+            }
         }
-        holder.tvNumber.text = "2"
 
         val scale = context.getResources().getDisplayMetrics().density;
 
         val drawable = GradientDrawable()
-        drawable.setColor(Color.parseColor("#${item.color}"))
+        drawable.setColor(Color.parseColor(item.color))
         drawable.setCornerRadius((8 * scale + 0.5f))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

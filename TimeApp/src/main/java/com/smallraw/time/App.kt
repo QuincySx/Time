@@ -27,4 +27,8 @@ public class App : Application() {
     fun getRepository(): DataRepository {
         return DataRepository.getInstance(getDatabase())
     }
+
+    fun getAppExecutors(): AppExecutors {
+        return mAppExecutors
+    }
 }

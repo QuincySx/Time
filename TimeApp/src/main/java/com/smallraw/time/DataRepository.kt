@@ -1,6 +1,7 @@
 package com.smallraw.time
 
 import com.smallraw.time.db.AppDatabase
+import com.smallraw.time.db.entity.MemorialEntity
 
 
 class DataRepository {
@@ -26,6 +27,10 @@ class DataRepository {
 
     constructor(database: AppDatabase) {
         mDatabase = database
+    }
+
+    fun getActiveTask(): List<MemorialEntity> {
+        return mDatabase.memorialDao().selectActive()
     }
 
 }

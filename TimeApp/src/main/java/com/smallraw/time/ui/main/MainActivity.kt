@@ -6,17 +6,15 @@ import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseActivity
-import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.about.AboutActivity
 import com.smallraw.time.ui.adapter.OnItemLongClickListener
 import com.smallraw.time.ui.adapter.ViewPagerAdapter
 import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : BaseActivity() {
     lateinit var mTaskListFragment: TaskListFragment
@@ -92,19 +90,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initData() {
-        val memorialList = ArrayList<MemorialEntity>()
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "139EED", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "9092A5", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "139EED", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "EE386D", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 1, "9092A5", Date(), Date(), Date()))
-        memorialList.add(MemorialEntity("纪念日", "什么都不纪念", 0, "FFC529", Date(), Date(), Date()))
-        mTaskListFragment.addDate(memorialList)
+        (application as App).getAppExecutors().networkIO().execute {
+            val memorialList = (application as App).getRepository().getActiveTask()
+            mTaskListFragment.addDate(memorialList)
+        }
     }
 }
