@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull
 
 class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEntity>) : RecyclerView.Adapter<MemorialAdapter.ViewHolder>() {
     public var onItemLongClickListener: OnItemLongClickListener? = null
+    public var onItemClickListener: OnItemClickListener? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(res, parent, false)
@@ -66,6 +68,12 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
                 onItemLongClickListener!!.onLongClick(holder.adapterPosition, holder)
             }
             false
+        }
+
+        holder.itemView.setOnClickListener {
+            if (onItemClickListener != null) {
+                onItemClickListener!!.onClick(holder.adapterPosition, holder)
+            }
         }
     }
 

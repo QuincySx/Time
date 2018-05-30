@@ -30,6 +30,6 @@ class ArchivingClipActivity : BaseTitleBarActivity() {
         val layoutParams = ViewGroup.LayoutParams(RudenessScreenHelper.pt2px(this, 35F).toInt(), RudenessScreenHelper.pt2px(this, 35F).toInt())
         right.layoutParams = layoutParams
         right.setBackgroundResource(R.drawable.ic_delete_black)
-        return right;
+        return right
     }
 }
