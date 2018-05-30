@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.smallraw.time.R
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
+import com.smallraw.time.utils.differentDays
 import com.smallraw.time.utils.getWeekOfDate
 import org.jetbrains.annotations.NotNull
 import java.util.*
@@ -45,7 +46,7 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         holder.tvTime.text = dateFormat(item.beginTime)
 
         holder.tvDay.text = "天"
-        val days = ((Date().getTime() - item.createTime.getTime()) / (1000 * 3600 * 24)) as Long
+        val days = differentDays(Date(), item.createTime)
         holder.tvNumber.text = "${Math.abs(days)}"
 
         if (item.type == 0) {
