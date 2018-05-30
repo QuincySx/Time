@@ -28,6 +28,8 @@ class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
         addRightView(right)
     }
 
+    override fun useStatusBarLightMode() = false
+
     override fun selfTitleBackgroundColor(): Int {
         return Color.parseColor("#EE386D")
     }

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import qiu.niorgai.StatusBarCompat
 
 
 abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
@@ -22,6 +23,7 @@ abstract class BaseActivity : AppCompatActivity(), Handler.Callback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        StatusBarCompat.translucentStatusBar(this, true)
 
         if (useStatusBarLightMode()) {
             StatusBarLightMode(this)
