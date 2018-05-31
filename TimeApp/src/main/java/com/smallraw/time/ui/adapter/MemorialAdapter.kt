@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.smallraw.time.R
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
+import com.smallraw.time.utils.dateParse
 import com.smallraw.time.utils.differentDays
 import com.smallraw.time.utils.getWeekOfDate
 import org.jetbrains.annotations.NotNull
@@ -21,7 +22,7 @@ import java.util.*
 class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEntity>) : RecyclerView.Adapter<MemorialAdapter.ViewHolder>() {
     public var onItemLongClickListener: OnItemLongClickListener? = null
     public var onItemClickListener: OnItemClickListener? = null
-
+    val mCurrentDate = dateParse(dateFormat(Date()))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(res, parent, false)
@@ -54,12 +55,13 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
             holder.tvTypeHint.text = "累计"
         } else {
             holder.tvType.text = "倒数日"
-            if (Date() <= item.beginTime) {
+            if (mCurrentDate < item.beginTime) {
                 val days = differentDays(Date(), item.beginTime)
                 holder.tvNumber.text = "${Math.abs(days)}"
                 holder.tvTypeHint.text = "剩余"
-            } else if (Date() <= item.endTime) {
-                holder.tvNumber.text = "0"
+            } else if (mCurrentDate <= item.endTime || (item.endTime == item.beginTime && mCurrentDate == item.beginTime)) {
+                val days = differentDays(Date(), item.beginTime)
+                holder.tvNumber.text = "${Math.abs(days + 1)}"
                 holder.tvTypeHint.text = "活动中"
             } else {
                 val days = differentDays(item.endTime, Date())
