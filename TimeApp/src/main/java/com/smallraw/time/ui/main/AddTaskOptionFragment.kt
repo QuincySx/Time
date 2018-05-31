@@ -28,10 +28,9 @@ class AddTaskOptionFragment : BaseFragment(), View.OnClickListener {
                 AddTaskActivity.startReciprocal(this.activity!!)
             }
             R.id.layout_accumulative -> {
-                AddTaskActivity.startReciprocal(this.activity!!)
+                AddTaskActivity.startAccumulative(this.activity!!)
             }
             else -> {
-
             }
         }
     }

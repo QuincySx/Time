@@ -46,19 +46,25 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         holder.tvTime.text = dateFormat(item.beginTime)
 
         holder.tvDay.text = "天"
-        val days = differentDays(Date(), item.createTime)
-        holder.tvNumber.text = "${Math.abs(days)}"
 
         if (item.type == 0) {
+            val days = differentDays(Date(), item.beginTime)
+            holder.tvNumber.text = "${Math.abs(days)}"
             holder.tvType.text = "累计日"
             holder.tvTypeHint.text = "累计"
         } else {
-            holder.tvNumber.text = "2"
             holder.tvType.text = "倒数日"
-            if (days < 0) {
-                holder.tvTypeHint.text = "已过"
-            } else {
+            if (Date() <= item.beginTime) {
+                val days = differentDays(Date(), item.beginTime)
+                holder.tvNumber.text = "${Math.abs(days)}"
                 holder.tvTypeHint.text = "剩余"
+            } else if (Date() <= item.endTime) {
+                holder.tvNumber.text = "0"
+                holder.tvTypeHint.text = "活动中"
+            } else {
+                val days = differentDays(item.endTime, Date())
+                holder.tvNumber.text = "${Math.abs(days)}"
+                holder.tvTypeHint.text = "已过"
             }
         }
 

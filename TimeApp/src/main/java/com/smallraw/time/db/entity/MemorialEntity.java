@@ -4,11 +4,13 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Date;
 
 @Entity(tableName = MemorialEntity.TABLE_NAME)
-public class MemorialEntity {
+public class MemorialEntity implements Parcelable {
     public final static String TABLE_NAME = "memorial";
 
     @PrimaryKey(autoGenerate = true)
@@ -37,7 +39,7 @@ public class MemorialEntity {
     }
 
     @Ignore
-    public MemorialEntity(String name, String description,int type, String color,
+    public MemorialEntity(String name, String description, int type, String color,
                           Date beginTime, Date endTime, Date createTime) {
         this.name = name;
         this.description = description;
@@ -143,4 +145,51 @@ public class MemorialEntity {
                 ", archive=" + archive +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeInt(this.type);
+        dest.writeString(this.color);
+        dest.writeLong(this.beginTime != null ? this.beginTime.getTime() : -1);
+        dest.writeLong(this.endTime != null ? this.endTime.getTime() : -1);
+        dest.writeLong(this.createTime != null ? this.createTime.getTime() : -1);
+        dest.writeByte(this.strike ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.archive ? (byte) 1 : (byte) 0);
+    }
+
+    protected MemorialEntity(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.name = in.readString();
+        this.description = in.readString();
+        this.type = in.readInt();
+        this.color = in.readString();
+        long tmpBeginTime = in.readLong();
+        this.beginTime = tmpBeginTime == -1 ? null : new Date(tmpBeginTime);
+        long tmpEndTime = in.readLong();
+        this.endTime = tmpEndTime == -1 ? null : new Date(tmpEndTime);
+        long tmpCreateTime = in.readLong();
+        this.createTime = tmpCreateTime == -1 ? null : new Date(tmpCreateTime);
+        this.strike = in.readByte() != 0;
+        this.archive = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<MemorialEntity> CREATOR = new Parcelable.Creator<MemorialEntity>() {
+        @Override
+        public MemorialEntity createFromParcel(Parcel source) {
+            return new MemorialEntity(source);
+        }
+
+        @Override
+        public MemorialEntity[] newArray(int size) {
+            return new MemorialEntity[size];
+        }
+    };
 }

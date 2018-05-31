@@ -1,5 +1,6 @@
 package com.smallraw.time.ui.taskInfo
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -10,9 +11,20 @@ import android.widget.ImageView
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.shareCard.ShareCardActivity
 
 class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
+    companion object {
+        @JvmStatic
+        private val EXTER_DATA = "exter_data"
+
+        fun start(context: Context, date: MemorialEntity) {
+            val intent = Intent(context, TaskInfoActivity::class.java)
+            intent.putExtra(EXTER_DATA, date)
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

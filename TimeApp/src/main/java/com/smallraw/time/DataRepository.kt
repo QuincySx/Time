@@ -33,4 +33,8 @@ class DataRepository {
         return mDatabase.memorialDao().selectActive()
     }
 
+    fun insertTask(memorialEntity: MemorialEntity): Long {
+        return mDatabase.memorialDao().insert(memorialEntity)
+    }
+
 }
