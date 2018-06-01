@@ -221,7 +221,7 @@ class AddTaskActivity : BaseTitleBarActivity() {
             mSelectColor = "#139EED"
         } else {
             parseColor = Color.parseColor("#EE386D")
-            mSelectColor = "#139EED"
+            mSelectColor = "#EE386D"
         }
         return parseColor
     }
