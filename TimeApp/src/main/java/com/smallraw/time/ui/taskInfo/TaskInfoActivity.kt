@@ -72,8 +72,7 @@ class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
 
             }
             R.id.img_title_share -> {
-                val intent = Intent(this, ShareCardActivity::class.java)
-                startActivity(intent)
+                ShareCardActivity.start(this, mMemorialEntity)
             }
         }
     }
