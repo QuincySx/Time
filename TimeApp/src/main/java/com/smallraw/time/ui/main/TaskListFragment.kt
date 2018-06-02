@@ -64,7 +64,7 @@ class TaskListFragment : BaseFragment() {
             mMemorialAdapter.onItemLongClickListener = mLongClickListener
         }
         if (mClickListener != null) {
-            mMemorialAdapter.onItemLongClickListener = mLongClickListener
+            mMemorialAdapter.onItemClickListener = mClickListener
         }
     }
 

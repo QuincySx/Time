@@ -13,6 +13,11 @@ import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.shareCard.ShareCardActivity
+import com.smallraw.time.utils.dateFormat
+import com.smallraw.time.utils.dateParse
+import com.smallraw.time.utils.differentDays
+import kotlinx.android.synthetic.main.activity_task_info.*
+import java.util.*
 
 class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
     companion object {
@@ -26,11 +31,19 @@ class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
         }
     }
 
+    private lateinit var mMemorialEntity: MemorialEntity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_info)
         setTitleBarLeftImage(R.drawable.ic_back_white)
         initTitleRight()
+        initData()
+        setViewData(mMemorialEntity)
+    }
+
+    private fun initData() {
+        mMemorialEntity = intent.getParcelableExtra<MemorialEntity>(EXTER_DATA)
     }
 
     private fun initTitleRight() {
@@ -65,4 +78,37 @@ class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
         }
     }
 
+    private fun setViewData(memorial: MemorialEntity) {
+        tv_title.text = memorial.name
+        tv_content.text = memorial.description
+
+        val mCurrentDate = dateParse(dateFormat(Date()))
+        if (memorial.type == 0) {
+            val days = differentDays(Date(), memorial.beginTime)
+            tv_day.text = "${Math.abs(days)}"
+//            tvType.text = "累计日"
+            tv_day_hint.text = "累计"
+        } else {
+//            tvType.text = "倒数日"
+            if (mCurrentDate < memorial.beginTime) {
+                val days = differentDays(Date(), memorial.beginTime)
+                tv_day.text = "${Math.abs(days)}"
+                tv_day_hint.text = "剩余"
+            } else if (mCurrentDate <= memorial.endTime || (memorial.endTime == memorial.beginTime && mCurrentDate == memorial.beginTime)) {
+                val days = differentDays(Date(), memorial.beginTime)
+                tv_day.text = "${Math.abs(days + 1)}"
+                tv_day_hint.text = "活动中"
+            } else {
+                val days = differentDays(memorial.endTime, Date())
+                tv_day.text = "${Math.abs(days)}"
+                tv_day_hint.text = "已过"
+            }
+        }
+
+        if (memorial.type == 0) {
+            tv_time.text = "${dateFormat(memorial.beginTime)}"
+        } else {
+            tv_time.text = "${dateFormat(memorial.beginTime)} — ${dateFormat(memorial.endTime)}"
+        }
+    }
 }

@@ -5,15 +5,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseActivity
+import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.about.AboutActivity
+import com.smallraw.time.ui.adapter.OnItemClickListener
 import com.smallraw.time.ui.adapter.OnItemLongClickListener
 import com.smallraw.time.ui.adapter.ViewPagerAdapter
 import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
+import com.smallraw.time.ui.taskInfo.TaskInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -29,8 +33,13 @@ class MainActivity : BaseActivity() {
 
     private fun initViewPager() {
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        mTaskListFragment = TaskListFragment.newInstance(object : OnItemLongClickListener {
-            override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder): Boolean {
+        mTaskListFragment = TaskListFragment.newInstance(object : OnItemClickListener {
+            override fun onClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity) {
+                TaskInfoActivity.start(this@MainActivity, item)
+                Log.e("====","嗲机")
+            }
+        }, object : OnItemLongClickListener {
+            override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity): Boolean {
                 val intent = Intent(this@MainActivity, PreviewTaskActivity::class.java)
                 startActivity(intent)
                 return true

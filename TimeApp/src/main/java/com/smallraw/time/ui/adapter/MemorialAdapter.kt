@@ -83,14 +83,14 @@ class MemorialAdapter(@NotNull val res: Int, @NotNull val data: List<MemorialEnt
         }
         holder.itemView.setOnLongClickListener {
             if (onItemLongClickListener != null) {
-                onItemLongClickListener!!.onLongClick(holder.adapterPosition, holder)
+                onItemLongClickListener!!.onLongClick(holder.adapterPosition, holder, item)
             }
             false
         }
 
         holder.itemView.setOnClickListener {
             if (onItemClickListener != null) {
-                onItemClickListener!!.onClick(holder.adapterPosition, holder)
+                onItemClickListener!!.onClick(holder.adapterPosition, holder, item)
             }
         }
     }
