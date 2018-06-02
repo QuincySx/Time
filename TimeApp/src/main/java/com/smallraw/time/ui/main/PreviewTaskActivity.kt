@@ -2,6 +2,8 @@ package com.smallraw.time.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,8 @@ import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
 import com.smallraw.time.utils.dateParse
 import com.smallraw.time.utils.differentDays
-import kotlinx.android.synthetic.main.activity_task_info.*
+import kotlinx.android.synthetic.main.activity_preview_task.*
+import kotlinx.android.synthetic.main.layout_task_card.*
 import java.util.*
 
 class PreviewTaskActivity : BaseTitleBarActivity() {
@@ -91,5 +94,11 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         } else {
             tv_time.text = "${dateFormat(memorial.beginTime)} — ${dateFormat(memorial.endTime)}"
         }
+
+        val color = Color.parseColor(memorial.color)
+        layout_card_root.background = ColorDrawable(color)
+        tv_delete.setTextColor(color)
+        tv_top.setTextColor(color)
+        tv_archiving.setTextColor(color)
     }
 }

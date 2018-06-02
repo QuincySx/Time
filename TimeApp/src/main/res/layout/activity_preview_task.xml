@@ -33,6 +33,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <TextView
+            android:id="@+id/tv_delete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -41,6 +42,7 @@
             android:textColor="#EE386D"
             android:textSize="18pt"/>
         <TextView
+            android:id="@+id/tv_top"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -49,6 +51,7 @@
             android:textColor="#EE386D"
             android:textSize="18pt"/>
         <TextView
+            android:id="@+id/tv_archiving"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
