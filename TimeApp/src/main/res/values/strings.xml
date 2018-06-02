@@ -4,4 +4,5 @@
     <string name="title_recycle_bin">回收站</string>
     <string name="title_archiving_clip">归档夹</string>
     <string name="title_about">关于</string>
+    <string name="title_preview">预览</string>
 </resources>

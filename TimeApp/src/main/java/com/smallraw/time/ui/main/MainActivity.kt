@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.smallraw.time.App
 import com.smallraw.time.R
@@ -36,12 +35,10 @@ class MainActivity : BaseActivity() {
         mTaskListFragment = TaskListFragment.newInstance(object : OnItemClickListener {
             override fun onClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity) {
                 TaskInfoActivity.start(this@MainActivity, item)
-                Log.e("====","嗲机")
             }
         }, object : OnItemLongClickListener {
             override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity): Boolean {
-                val intent = Intent(this@MainActivity, PreviewTaskActivity::class.java)
-                startActivity(intent)
+                PreviewTaskActivity.start(this@MainActivity, item)
                 return true
             }
         }, object : TaskListFragment.DataRepositoryCallback {
