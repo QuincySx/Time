@@ -3,6 +3,7 @@ package com.smallraw.time.ui.taskInfo
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,10 @@ class TaskInfoActivity : BaseTitleBarActivity(), View.OnClickListener {
     }
 
     private fun setViewData(memorial: MemorialEntity) {
+        val color = Color.parseColor(memorial.color)
+        layout_root.background = ColorDrawable(color)
+        mLayoutTitleBar.setBackgroundColor(color)
+
         tv_title.text = memorial.name
         tv_content.text = memorial.description
 
