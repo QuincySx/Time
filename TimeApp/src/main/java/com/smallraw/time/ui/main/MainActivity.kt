@@ -1,5 +1,6 @@
 package com.smallraw.time.ui.main
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -151,6 +152,13 @@ class MainActivity : BaseActivity() {
                     mDisplay = 0
                 }
             }
+            newData()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AddTaskOptionFragment.REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
             newData()
         }
     }

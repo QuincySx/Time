@@ -10,6 +10,11 @@ import com.smallraw.time.ui.addTask.AddTaskActivity
 import kotlinx.android.synthetic.main.fragment_add_task_option.*
 
 class AddTaskOptionFragment : BaseFragment(), View.OnClickListener {
+    companion object {
+        @JvmStatic
+        public val REQUEST_CODE_ADD_TASK = 1
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mView = inflater.inflate(R.layout.fragment_add_task_option, container, false)
         return mView
@@ -25,10 +30,10 @@ class AddTaskOptionFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.layout_reciprocal -> {
-                AddTaskActivity.startReciprocal(this.activity!!)
+                AddTaskActivity.startReciprocal(this.activity!!, REQUEST_CODE_ADD_TASK)
             }
             R.id.layout_accumulative -> {
-                AddTaskActivity.startAccumulative(this.activity!!)
+                AddTaskActivity.startAccumulative(this.activity!!, REQUEST_CODE_ADD_TASK)
             }
             else -> {
             }

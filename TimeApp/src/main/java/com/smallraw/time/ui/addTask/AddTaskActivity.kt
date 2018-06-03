@@ -1,12 +1,12 @@
 package com.smallraw.time.ui.addTask
 
+import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,20 +42,31 @@ class AddTaskActivity : BaseTitleBarActivity() {
         val EXTRA_TASK_TYPE_ACCUMULATIVE = 2
 
         @JvmStatic
-        fun startReciprocal(context: Context) {
-            start(context, EXTRA_TASK_TYPE_RECIPROCAL)
+        fun startReciprocal(any: Any, requestCode: Int) {
+            start(any, EXTRA_TASK_TYPE_RECIPROCAL, requestCode)
         }
 
         @JvmStatic
-        fun startAccumulative(context: Context) {
-            start(context, EXTRA_TASK_TYPE_ACCUMULATIVE)
+        fun startAccumulative(any: Any, requestCode: Int) {
+            start(any, EXTRA_TASK_TYPE_ACCUMULATIVE, requestCode)
         }
 
         @JvmStatic
-        fun start(context: Context, taskType: Int) {
-            val intent = Intent(context, AddTaskActivity::class.java)
-            intent.putExtra(EXTRA_TASK_TYPE, taskType)
-            ContextCompat.startActivity(context, intent, null)
+        fun start(any: Any, taskType: Int, requestCode: Int) {
+            val intent: Intent
+            if (any is Activity) {
+                intent = Intent(any, AddTaskActivity::class.java)
+                intent.putExtra(EXTRA_TASK_TYPE, taskType)
+                any.startActivityForResult(intent, requestCode)
+            } else if (any is Fragment) {
+                intent = Intent(any.activity, AddTaskActivity::class.java)
+                intent.putExtra(EXTRA_TASK_TYPE, taskType)
+                any.startActivityForResult(intent, requestCode)
+            } else if (any is android.app.Fragment) {
+                intent = Intent(any.activity, AddTaskActivity::class.java)
+                intent.putExtra(EXTRA_TASK_TYPE, taskType)
+                any.startActivityForResult(intent, requestCode)
+            }
         }
     }
 
@@ -168,6 +179,7 @@ class AddTaskActivity : BaseTitleBarActivity() {
                 val insertTaskId = (application as App).getRepository().insertTask(memorialEntity)
                 memorialEntity.id = insertTaskId
                 TaskInfoActivity.start(this, memorialEntity)
+                setResult(Activity.RESULT_OK)
                 finish()
             })
         }
