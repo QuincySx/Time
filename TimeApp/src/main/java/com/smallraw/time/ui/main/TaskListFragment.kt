@@ -80,7 +80,7 @@ class TaskListFragment : BaseFragment() {
     fun newDate(data: List<MemorialEntity>) {
         mMemorialList.clear()
         mMemorialList.addAll(data)
-        mMemorialAdapter.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     fun addDate(data: List<MemorialEntity>) {
@@ -92,7 +92,9 @@ class TaskListFragment : BaseFragment() {
     }
 
     fun notifyDataSetChanged() {
-        mMemorialAdapter.notifyDataSetChanged()
+        mHandler.post {
+            mMemorialAdapter.notifyDataSetChanged()
+        }
     }
 
     public interface DataRepositoryCallback {

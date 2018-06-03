@@ -22,12 +22,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
     lateinit var mTaskListFragment: TaskListFragment
 
+    private var mDisplay = 0
+    private var mOrder = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initDrawerView()
         initViewPager()
+        initDiaplayClickListener()
+        initOrderClickListener()
     }
 
     private fun initViewPager() {
@@ -96,9 +101,57 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initData() {
+        newData(mDisplay, mOrder)
+    }
+
+    private fun newData() {
+        newData(mDisplay, mOrder)
+    }
+
+    private fun newData(display: Int, order: Int) {
         (application as App).getAppExecutors().networkIO().execute {
-            val memorialList = (application as App).getRepository().getActiveTask()
-            mTaskListFragment.addDate(memorialList)
+            val memorialList = (application as App).getRepository().getActiveTask(display, order)
+            mTaskListFragment.newDate(memorialList)
+        }
+    }
+
+    private fun initOrderClickListener() {
+        rg_sort.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb_def -> {
+                    mOrder = 0
+                }
+                R.id.rb_time -> {
+                    mOrder = 1
+                }
+                R.id.rb_color -> {
+                    mOrder = 2
+                }
+                else -> {
+                    mOrder = 0
+                }
+            }
+            newData()
+        }
+    }
+
+    private fun initDiaplayClickListener() {
+        rg_display.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rb_all -> {
+                    mDisplay = 0
+                }
+                R.id.rb_reciprocal -> {
+                    mDisplay = 1
+                }
+                R.id.rb_accumulative -> {
+                    mDisplay = 2
+                }
+                else -> {
+                    mDisplay = 0
+                }
+            }
+            newData()
         }
     }
 }
