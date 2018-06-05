@@ -78,6 +78,11 @@ class DataRepository {
         return mDatabase.memorialDao().select(query)
     }
 
+    fun getTask(strike: Boolean = false, archive: Boolean = false): List<MemorialEntity> {
+        val query = SimpleSQLiteQuery("SELECT * FROM memorial WHERE strike = ? AND archive = ? ORDER BY createTime DESC", arrayOf<Any>(strike, archive))
+        return mDatabase.memorialDao().select(query)
+    }
+
     fun getTask(id: Long): MemorialEntity {
         return mDatabase.memorialDao().selectById(id)
     }
@@ -90,4 +95,7 @@ class DataRepository {
         val deleteById = mDatabase.memorialDao().update(memorialEntity)
     }
 
+    fun delete(id: Long) {
+        val deleteById = mDatabase.memorialDao().deleteById(id)
+    }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.smallraw.time.App
 import com.smallraw.time.R
+import com.smallraw.time.R.id.*
 import com.smallraw.time.base.BaseActivity
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.about.AboutActivity
@@ -44,7 +45,7 @@ class MainActivity : BaseActivity() {
             }
         }, object : OnItemLongClickListener {
             override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity): Boolean {
-                PreviewTaskActivity.start(this@MainActivity, item, PreviewTaskActivity.REQUEST_CODE_PREVIEW)
+                PreviewTaskActivity.start(this@MainActivity, item, holder.layoutPosition, PreviewTaskActivity.REQUEST_CODE_PREVIEW)
                 return true
             }
         }, object : TaskListFragment.DataRepositoryCallback {
@@ -164,8 +165,9 @@ class MainActivity : BaseActivity() {
             val position = data?.getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1)
             if (position != null && position != -1) {
                 mTaskListFragment.deletePosition(position)
+            } else {
+                newData()
             }
-            newData()
         }
     }
 }

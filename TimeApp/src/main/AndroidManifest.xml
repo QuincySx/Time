@@ -11,7 +11,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" tools:ignore="RtlEnabled">
+        android:theme="@style/AppTheme"
+        tools:ignore="RtlEnabled">
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,6 +33,10 @@
         <activity android:name=".ui.archivingClip.ArchivingClipActivity">
         </activity>
         <activity android:name=".ui.about.AboutActivity">
+        </activity>
+        <activity android:name=".ui.archivingClip.ArchivingClipManagerActivity">
+        </activity>
+        <activity android:name=".ui.recycleBin.RecycleBinManagerActivity">
         </activity>
     </application>
 

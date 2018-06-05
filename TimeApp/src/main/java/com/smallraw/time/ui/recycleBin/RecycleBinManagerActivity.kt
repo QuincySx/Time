@@ -1,4 +1,4 @@
-package com.smallraw.time.ui.main
+package com.smallraw.time.ui.recycleBin
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
 import com.smallraw.time.db.entity.MemorialEntity
+import com.smallraw.time.ui.main.PreviewTaskActivity
 import com.smallraw.time.utils.dateFormat
 import com.smallraw.time.utils.dateParse
 import com.smallraw.time.utils.differentDays
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_preview_task.*
 import kotlinx.android.synthetic.main.layout_task_card.*
 import java.util.*
 
-class PreviewTaskActivity : BaseTitleBarActivity() {
+class RecycleBinManagerActivity : BaseTitleBarActivity() {
     companion object {
         @JvmStatic
         private val EXTER_DATA = "exter_data"
@@ -32,35 +33,31 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         @JvmStatic
         val REQUEST_CODE_PREVIEW = 1
 
-        fun start(obj: Any, date: MemorialEntity, requesCode: Int) {
-            start(obj, date, -1, requesCode)
-        }
-
         fun start(obj: Any, date: MemorialEntity, position: Int, requesCode: Int) {
             if (obj is Activity) {
-                val intent = Intent(obj, PreviewTaskActivity::class.java)
-                intent.putExtra(EXTER_DATA, date)
-                intent.putExtra(EXTER_DATA_POSITION, position)
+                val intent = Intent(obj, RecycleBinManagerActivity::class.java)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA, date)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA_POSITION, position)
                 obj.startActivityForResult(intent, requesCode)
             } else if (obj is Fragment) {
-                val intent = Intent(obj.context, PreviewTaskActivity::class.java)
-                intent.putExtra(EXTER_DATA, date)
-                intent.putExtra(EXTER_DATA_POSITION, position)
+                val intent = Intent(obj.context, RecycleBinManagerActivity::class.java)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA, date)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA_POSITION, position)
                 obj.startActivityForResult(intent, requesCode)
             } else if (obj is android.app.Fragment) {
-                val intent = Intent(obj.activity, PreviewTaskActivity::class.java)
-                intent.putExtra(EXTER_DATA, date)
-                intent.putExtra(EXTER_DATA_POSITION, position)
+                val intent = Intent(obj.activity, RecycleBinManagerActivity::class.java)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA, date)
+                intent.putExtra(RecycleBinManagerActivity.EXTER_DATA_POSITION, position)
                 obj.startActivityForResult(intent, requesCode)
             }
         }
     }
 
     private lateinit var mMemorialEntity: MemorialEntity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preview_task)
-
+        setContentView(R.layout.activity_recycle_bin_manager)
         initTitleRight()
         (application as App).getAppExecutors().diskIO().execute {
             initData()
@@ -68,6 +65,10 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
                 setViewData(mMemorialEntity)
             }
         }
+    }
+
+    override fun selfTitleContent(): String {
+        return getString(R.string.title_recycle_bin)
     }
 
     private fun initTitleRight() {
@@ -79,17 +80,24 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         val right = ImageView(this)
         val layoutParams = ViewGroup.LayoutParams(RudenessScreenHelper.pt2px(this, 35F).toInt(), RudenessScreenHelper.pt2px(this, 35F).toInt())
         right.layoutParams = layoutParams
-        right.setBackgroundResource(R.drawable.ic_setting_black)
+        right.setBackgroundResource(R.drawable.ic_recovery_black)
+        right.setOnClickListener {
+            (application as App).getAppExecutors().diskIO().execute {
+                unDeleteTask()
+                (application as App).getAppExecutors().mainThread().execute {
+                    val intent = Intent()
+                    intent.putExtra(PreviewTaskActivity.EXTER_DATA_POSITION, getIntent().getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1))
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
+            }
+        }
         return right
     }
 
     private fun initData() {
-        mMemorialEntity = intent.getParcelableExtra<MemorialEntity>(PreviewTaskActivity.EXTER_DATA)
+        mMemorialEntity = intent.getParcelableExtra<MemorialEntity>(RecycleBinManagerActivity.EXTER_DATA)
         mMemorialEntity = (application as App).getRepository().getTask(mMemorialEntity.id)
-    }
-
-    override fun selfTitleContent(): String {
-        return getString(R.string.title_preview)
     }
 
     private fun setViewData(memorial: MemorialEntity) {
@@ -100,10 +108,8 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         if (memorial.type == 0) {
             val days = differentDays(Date(), memorial.beginTime)
             tv_day.text = "${Math.abs(days)}"
-//            tvType.text = "累计日"
             tv_day_hint.text = "累计"
         } else {
-//            tvType.text = "倒数日"
             if (mCurrentDate < memorial.beginTime) {
                 val days = differentDays(Date(), memorial.beginTime)
                 tv_day.text = "${Math.abs(days)}"
@@ -128,98 +134,32 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         val color = Color.parseColor(memorial.color)
         layout_card_root.background = ColorDrawable(color)
         tv_delete.setTextColor(color)
-        tv_top.setTextColor(color)
-        tv_archiving.setTextColor(color)
-
-        refreshDeleteView(mMemorialEntity)
-        refreshTopView(mMemorialEntity)
-        refreshArchivingView(mMemorialEntity)
+        tv_delete.text = "彻底删除"
     }
 
-    private fun refreshDeleteView(memorialEntity: MemorialEntity) {
-        (application as App).getAppExecutors().mainThread().execute {
-            if (memorialEntity.isStrike) {
-                tv_delete.text = "恢复"
-            } else {
-                tv_delete.text = "删除"
-            }
-        }
-    }
-
-    private fun refreshTopView(memorialEntity: MemorialEntity) {
-        (application as App).getAppExecutors().mainThread().execute {
-            tv_top.text = "置顶"
-        }
-    }
-
-    private fun refreshArchivingView(memorialEntity: MemorialEntity) {
-        (application as App).getAppExecutors().mainThread().execute {
-            if (memorialEntity.isArchive) {
-                tv_archiving.text = "取消归档"
-            } else {
-                tv_archiving.text = "归档"
-            }
-        }
-    }
 
     fun onClick(view: View) {
         when (view.id) {
             R.id.tv_delete -> {
                 (application as App).getAppExecutors().diskIO().execute {
-                    if (mMemorialEntity.isStrike) {
-                        unDeleteTask()
-                    } else {
-                        deleteTask()
-                    }
-                    refreshDeleteView(mMemorialEntity)
-                }
-            }
-            R.id.tv_top -> {
-                (application as App).getAppExecutors().diskIO().execute {
-                    refreshTopView(mMemorialEntity)
-                }
-            }
-            R.id.tv_archiving -> {
-                (application as App).getAppExecutors().diskIO().execute {
-                    if (mMemorialEntity.isArchive) {
-                        unArchivingTask()
-                    } else {
-                        archivingTask()
-                    }
-                    refreshArchivingView(mMemorialEntity)
+                    deleteTask()
                 }
             }
             else -> {
             }
         }
         val intent = Intent()
-        intent.putExtra(EXTER_DATA_POSITION, getIntent().getIntExtra(EXTER_DATA_POSITION, -1))
+        intent.putExtra(PreviewTaskActivity.EXTER_DATA_POSITION, getIntent().getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1))
         setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun deleteTask() {
-        mMemorialEntity.isStrike = true
-        (application as App).getRepository().update(mMemorialEntity)
+        (application as App).getRepository().delete(mMemorialEntity.id)
     }
 
     private fun unDeleteTask() {
         mMemorialEntity.isStrike = false
         (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun archivingTask() {
-        mMemorialEntity.isArchive = true
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun unArchivingTask() {
-        mMemorialEntity.isArchive = false
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun topTask() {
-    }
-
-    private fun unTopTask() {
     }
 }
