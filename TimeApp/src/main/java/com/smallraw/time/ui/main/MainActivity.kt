@@ -2,15 +2,17 @@ package com.smallraw.time.ui.main
 
 import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.smallraw.time.App
 import com.smallraw.time.R
-import com.smallraw.time.R.id.*
 import com.smallraw.time.base.BaseActivity
+import com.smallraw.time.broadcast.RefreshMainDataReceiver
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.about.AboutActivity
 import com.smallraw.time.ui.adapter.OnItemClickListener
@@ -20,12 +22,18 @@ import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
 import com.smallraw.time.ui.taskInfo.TaskInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.BroadcastReceiver
+import android.content.Context
+
 
 class MainActivity : BaseActivity() {
     lateinit var mTaskListFragment: TaskListFragment
 
     private var mDisplay = 0
     private var mOrder = 0
+
+    private var localBroadcast: LocalBroadcastManager? = null
+    private var localBroadcaseReceiver: RefreshMainDataReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +43,18 @@ class MainActivity : BaseActivity() {
         initViewPager()
         initDiaplayClickListener()
         initOrderClickListener()
+        initBroadcastReceiver()
+    }
+
+    private fun initBroadcastReceiver() {
+        localBroadcast = LocalBroadcastManager.getInstance(this)
+        //动态注册-都是一个套路
+        val localFilter = IntentFilter()
+        localFilter.addAction(RefreshMainDataReceiver.BroadcastRefreshMain)
+        localBroadcaseReceiver = object : RefreshMainDataReceiver() {
+            fun onReceive(context: Context, intent: Intent): Unit = initData()
+        }
+        localBroadcast?.registerReceiver(localBroadcaseReceiver!!, localFilter)
     }
 
     private fun initViewPager() {
@@ -169,5 +189,10 @@ class MainActivity : BaseActivity() {
                 newData()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(localBroadcaseReceiver);
     }
 }

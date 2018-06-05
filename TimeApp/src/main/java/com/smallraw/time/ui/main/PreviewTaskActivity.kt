@@ -13,6 +13,10 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.biz.archivingTask
+import com.smallraw.time.biz.deleteTask
+import com.smallraw.time.biz.unArchivingTask
+import com.smallraw.time.biz.unDeleteTask
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
 import com.smallraw.time.utils.dateParse
@@ -167,9 +171,10 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             R.id.tv_delete -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (mMemorialEntity.isStrike) {
-                        unDeleteTask()
+                        unDeleteTask(application,mMemorialEntity)
                     } else {
-                        deleteTask()
+                        deleteTask(application,mMemorialEntity)
+
                     }
                     refreshDeleteView(mMemorialEntity)
                 }
@@ -182,9 +187,9 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             R.id.tv_archiving -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (mMemorialEntity.isArchive) {
-                        unArchivingTask()
+                        unArchivingTask(application,mMemorialEntity)
                     } else {
-                        archivingTask()
+                        archivingTask(application,mMemorialEntity)
                     }
                     refreshArchivingView(mMemorialEntity)
                 }
@@ -197,29 +202,4 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         setResult(Activity.RESULT_OK, intent)
     }
 
-    private fun deleteTask() {
-        mMemorialEntity.isStrike = true
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun unDeleteTask() {
-        mMemorialEntity.isStrike = false
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun archivingTask() {
-        mMemorialEntity.isArchive = true
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun unArchivingTask() {
-        mMemorialEntity.isArchive = false
-        (application as App).getRepository().update(mMemorialEntity)
-    }
-
-    private fun topTask() {
-    }
-
-    private fun unTopTask() {
-    }
 }

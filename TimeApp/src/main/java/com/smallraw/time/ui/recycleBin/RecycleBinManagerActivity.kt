@@ -13,6 +13,9 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.biz.deleteTask
+import com.smallraw.time.biz.unDeleteTask
+import com.smallraw.time.broadcast.RefreshMainDataReceiver
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.main.PreviewTaskActivity
 import com.smallraw.time.utils.dateFormat
@@ -83,7 +86,8 @@ class RecycleBinManagerActivity : BaseTitleBarActivity() {
         right.setBackgroundResource(R.drawable.ic_recovery_black)
         right.setOnClickListener {
             (application as App).getAppExecutors().diskIO().execute {
-                unDeleteTask()
+                unDeleteTask(application, mMemorialEntity)
+                RefreshMainDataReceiver.sendBroadcast(application)
                 (application as App).getAppExecutors().mainThread().execute {
                     val intent = Intent()
                     intent.putExtra(PreviewTaskActivity.EXTER_DATA_POSITION, getIntent().getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1))
@@ -142,7 +146,7 @@ class RecycleBinManagerActivity : BaseTitleBarActivity() {
         when (view.id) {
             R.id.tv_delete -> {
                 (application as App).getAppExecutors().diskIO().execute {
-                    deleteTask()
+                    deleteTask(application, mMemorialEntity)
                 }
             }
             else -> {
@@ -154,12 +158,4 @@ class RecycleBinManagerActivity : BaseTitleBarActivity() {
         finish()
     }
 
-    private fun deleteTask() {
-        (application as App).getRepository().delete(mMemorialEntity.id)
-    }
-
-    private fun unDeleteTask() {
-        mMemorialEntity.isStrike = false
-        (application as App).getRepository().update(mMemorialEntity)
-    }
 }
