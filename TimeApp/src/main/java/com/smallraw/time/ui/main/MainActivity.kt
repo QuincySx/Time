@@ -1,11 +1,11 @@
 package com.smallraw.time.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -22,8 +22,6 @@ import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
 import com.smallraw.time.ui.taskInfo.TaskInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.BroadcastReceiver
-import android.content.Context
 
 
 class MainActivity : BaseActivity() {
@@ -32,7 +30,6 @@ class MainActivity : BaseActivity() {
     private var mDisplay = 0
     private var mOrder = 0
 
-    private var localBroadcast: LocalBroadcastManager? = null
     private var localBroadcaseReceiver: RefreshMainDataReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +44,15 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initBroadcastReceiver() {
-        localBroadcast = LocalBroadcastManager.getInstance(this)
         //动态注册-都是一个套路
         val localFilter = IntentFilter()
         localFilter.addAction(RefreshMainDataReceiver.BroadcastRefreshMain)
         localBroadcaseReceiver = object : RefreshMainDataReceiver() {
-            fun onReceive(context: Context, intent: Intent): Unit = initData()
+            override fun onReceive(context: Context, intent: Intent) {
+                initData()
+            }
         }
-        localBroadcast?.registerReceiver(localBroadcaseReceiver!!, localFilter)
+        registerReceiver(localBroadcaseReceiver!!, localFilter)
     }
 
     private fun initViewPager() {
@@ -192,7 +190,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
+        unregisterReceiver(localBroadcaseReceiver)
         super.onDestroy()
-        unregisterReceiver(localBroadcaseReceiver);
     }
 }

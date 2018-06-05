@@ -38,15 +38,6 @@
         </activity>
         <activity android:name=".ui.recycleBin.RecycleBinManagerActivity">
         </activity>
-
-        <receiver
-            android:name=".broadcast.RefreshMainDataReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="LocalBroadcaseReceiver"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
