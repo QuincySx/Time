@@ -1,13 +1,15 @@
 package com.smallraw.time.ui.main
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
@@ -24,10 +26,33 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         @JvmStatic
         private val EXTER_DATA = "exter_data"
 
-        fun start(context: Context, date: MemorialEntity) {
-            val intent = Intent(context, PreviewTaskActivity::class.java)
-            intent.putExtra(EXTER_DATA, date)
-            context.startActivity(intent)
+        @JvmStatic
+        val EXTER_DATA_POSITION = "exter_data_position"
+
+        @JvmStatic
+        val REQUEST_CODE_PREVIEW = 1
+
+        fun start(obj: Any, date: MemorialEntity, requesCode: Int) {
+            start(obj, date, -1, requesCode)
+        }
+
+        fun start(obj: Any, date: MemorialEntity, position: Int, requesCode: Int) {
+            if (obj is Activity) {
+                val intent = Intent(obj, PreviewTaskActivity::class.java)
+                intent.putExtra(EXTER_DATA, date)
+                intent.putExtra(EXTER_DATA_POSITION, position)
+                obj.startActivityForResult(intent, requesCode)
+            } else if (obj is Fragment) {
+                val intent = Intent(obj.context, PreviewTaskActivity::class.java)
+                intent.putExtra(EXTER_DATA, date)
+                intent.putExtra(EXTER_DATA_POSITION, position)
+                obj.startActivityForResult(intent, requesCode)
+            } else if (obj is android.app.Fragment) {
+                val intent = Intent(obj.activity, PreviewTaskActivity::class.java)
+                intent.putExtra(EXTER_DATA, date)
+                intent.putExtra(EXTER_DATA_POSITION, position)
+                obj.startActivityForResult(intent, requesCode)
+            }
         }
     }
 
@@ -37,8 +62,12 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         setContentView(R.layout.activity_preview_task)
 
         initTitleRight()
-        initData()
-        setViewData(mMemorialEntity)
+        (application as App).getAppExecutors().diskIO().execute {
+            initData()
+            (application as App).getAppExecutors().mainThread().execute {
+                setViewData(mMemorialEntity)
+            }
+        }
     }
 
     private fun initTitleRight() {
@@ -56,6 +85,7 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
 
     private fun initData() {
         mMemorialEntity = intent.getParcelableExtra<MemorialEntity>(PreviewTaskActivity.EXTER_DATA)
+        mMemorialEntity = (application as App).getRepository().getTask(mMemorialEntity.id)
     }
 
     override fun selfTitleContent(): String {
@@ -100,5 +130,96 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
         tv_delete.setTextColor(color)
         tv_top.setTextColor(color)
         tv_archiving.setTextColor(color)
+
+        refreshDeleteView(mMemorialEntity)
+        refreshTopView(mMemorialEntity)
+        refreshArchivingView(mMemorialEntity)
+    }
+
+    private fun refreshDeleteView(memorialEntity: MemorialEntity) {
+        (application as App).getAppExecutors().mainThread().execute {
+            if (memorialEntity.isStrike) {
+                tv_delete.text = "恢复"
+            } else {
+                tv_delete.text = "删除"
+            }
+        }
+    }
+
+    private fun refreshTopView(memorialEntity: MemorialEntity) {
+        (application as App).getAppExecutors().mainThread().execute {
+            tv_top.text = "置顶"
+        }
+    }
+
+    private fun refreshArchivingView(memorialEntity: MemorialEntity) {
+        (application as App).getAppExecutors().mainThread().execute {
+            if (memorialEntity.isArchive) {
+                tv_archiving.text = "取消归档"
+            } else {
+                tv_archiving.text = "归档"
+            }
+        }
+    }
+
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.tv_delete -> {
+                (application as App).getAppExecutors().diskIO().execute {
+                    if (mMemorialEntity.isStrike) {
+                        unDeleteTask()
+                    } else {
+                        deleteTask()
+                    }
+                    refreshDeleteView(mMemorialEntity)
+                }
+            }
+            R.id.tv_top -> {
+                (application as App).getAppExecutors().diskIO().execute {
+                    refreshTopView(mMemorialEntity)
+                }
+            }
+            R.id.tv_archiving -> {
+                (application as App).getAppExecutors().diskIO().execute {
+                    if (mMemorialEntity.isArchive) {
+                        unArchivingTask()
+                    } else {
+                        archivingTask()
+                    }
+                    refreshArchivingView(mMemorialEntity)
+                }
+            }
+            else -> {
+            }
+        }
+        val intent = Intent()
+        intent.putExtra(EXTER_DATA_POSITION, getIntent().getIntExtra(EXTER_DATA_POSITION, -1))
+        setResult(Activity.RESULT_OK, intent)
+    }
+
+    private fun deleteTask() {
+        mMemorialEntity.isStrike = true
+        (application as App).getRepository().update(mMemorialEntity)
+    }
+
+    private fun unDeleteTask() {
+        mMemorialEntity.isStrike = false
+        (application as App).getRepository().update(mMemorialEntity)
+    }
+
+    private fun archivingTask() {
+        mMemorialEntity.isArchive = true
+        (application as App).getRepository().update(mMemorialEntity)
+    }
+
+    private fun unArchivingTask() {
+        mMemorialEntity.isArchive = false
+        (application as App).getRepository().update(mMemorialEntity)
+    }
+
+    private fun topTask() {
+    }
+
+    private fun unTopTask() {
     }
 }

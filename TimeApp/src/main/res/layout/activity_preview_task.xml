@@ -38,6 +38,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="删除"
             android:textColor="#EE386D"
             android:textSize="18pt"/>
@@ -47,6 +48,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="置顶"
             android:textColor="#EE386D"
             android:textSize="18pt"/>
@@ -56,6 +58,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:onClick="onClick"
             android:text="归档"
             android:textColor="#EE386D"
             android:textSize="18pt"/>

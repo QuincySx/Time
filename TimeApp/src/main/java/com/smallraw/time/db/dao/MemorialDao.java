@@ -31,7 +31,8 @@ public interface MemorialDao {
     @Query("SELECT * FROM memorial WHERE strike = 0 AND archive = 0")
     List<MemorialEntity> selectActive();
 
-    @Query("SELECT * FROM memorial WHERE strike = 0 AND archive = 0 AND type = :display ORDER BY :order DESC")
+    @Query("SELECT * FROM memorial WHERE strike = 0 AND archive = 0 AND type = :display ORDER BY " +
+            ":order DESC")
     List<MemorialEntity> selectOptionActive(int display, String order);
 
     @Query("SELECT * FROM memorial WHERE strike = 0 AND archive = 0 ORDER BY :order DESC")

@@ -97,6 +97,11 @@ class TaskListFragment : BaseFragment() {
         }
     }
 
+    fun deletePosition(position: Int) {
+        mMemorialList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
     public interface DataRepositoryCallback {
         fun getData()
     }

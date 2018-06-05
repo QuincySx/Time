@@ -44,7 +44,7 @@ class MainActivity : BaseActivity() {
             }
         }, object : OnItemLongClickListener {
             override fun onLongClick(position: Int, holder: RecyclerView.ViewHolder, item: MemorialEntity): Boolean {
-                PreviewTaskActivity.start(this@MainActivity, item)
+                PreviewTaskActivity.start(this@MainActivity, item, PreviewTaskActivity.REQUEST_CODE_PREVIEW)
                 return true
             }
         }, object : TaskListFragment.DataRepositoryCallback {
@@ -159,6 +159,12 @@ class MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AddTaskOptionFragment.REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
+            newData()
+        } else if (requestCode == PreviewTaskActivity.REQUEST_CODE_PREVIEW && resultCode == Activity.RESULT_OK) {
+            val position = data?.getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1)
+            if (position != null && position != -1) {
+                mTaskListFragment.deletePosition(position)
+            }
             newData()
         }
     }

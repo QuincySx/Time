@@ -78,8 +78,16 @@ class DataRepository {
         return mDatabase.memorialDao().select(query)
     }
 
+    fun getTask(id: Long): MemorialEntity {
+        return mDatabase.memorialDao().selectById(id)
+    }
+
     fun insertTask(memorialEntity: MemorialEntity): Long {
         return mDatabase.memorialDao().insert(memorialEntity)
+    }
+
+    fun update(memorialEntity: MemorialEntity) {
+        val deleteById = mDatabase.memorialDao().update(memorialEntity)
     }
 
 }
