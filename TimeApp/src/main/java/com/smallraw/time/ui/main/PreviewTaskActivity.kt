@@ -13,10 +13,7 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
-import com.smallraw.time.biz.archivingTask
-import com.smallraw.time.biz.deleteTask
-import com.smallraw.time.biz.unArchivingTask
-import com.smallraw.time.biz.unDeleteTask
+import com.smallraw.time.biz.*
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.utils.dateFormat
 import com.smallraw.time.utils.dateParse
@@ -151,8 +148,16 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
     }
 
     private fun refreshTopView(memorialEntity: MemorialEntity) {
-        (application as App).getAppExecutors().mainThread().execute {
-            tv_top.text = "置顶"
+        (application as App).getAppExecutors().diskIO().execute {
+            if (isTopTask(application, mMemorialEntity)) {
+                (application as App).getAppExecutors().mainThread().execute {
+                    tv_top.text = "取消置顶"
+                }
+            } else {
+                (application as App).getAppExecutors().mainThread().execute {
+                    tv_top.text = "置顶"
+                }
+            }
         }
     }
 
@@ -171,9 +176,9 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             R.id.tv_delete -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (mMemorialEntity.isStrike) {
-                        unDeleteTask(application,mMemorialEntity)
+                        unDeleteTask(application, mMemorialEntity)
                     } else {
-                        deleteTask(application,mMemorialEntity)
+                        deleteTask(application, mMemorialEntity)
 
                     }
                     refreshDeleteView(mMemorialEntity)
@@ -181,15 +186,20 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             }
             R.id.tv_top -> {
                 (application as App).getAppExecutors().diskIO().execute {
+                    if (isTopTask(application, mMemorialEntity)) {
+                        unTopTask(application, mMemorialEntity)
+                    } else {
+                        topTask(application, mMemorialEntity)
+                    }
                     refreshTopView(mMemorialEntity)
                 }
             }
             R.id.tv_archiving -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (mMemorialEntity.isArchive) {
-                        unArchivingTask(application,mMemorialEntity)
+                        unArchivingTask(application, mMemorialEntity)
                     } else {
-                        archivingTask(application,mMemorialEntity)
+                        archivingTask(application, mMemorialEntity)
                     }
                     refreshArchivingView(mMemorialEntity)
                 }

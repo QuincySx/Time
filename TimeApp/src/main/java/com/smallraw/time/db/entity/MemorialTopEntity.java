@@ -28,6 +28,7 @@ public class MemorialTopEntity {
     @Ignore
     public MemorialTopEntity(Long memorial_id) {
         this.memorial_id = memorial_id;
+        this.createTime = new Date();
     }
 
     public Long getId() {

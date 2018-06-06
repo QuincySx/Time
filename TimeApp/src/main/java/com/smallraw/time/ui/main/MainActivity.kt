@@ -130,7 +130,23 @@ class MainActivity : BaseActivity() {
 
     private fun newData(display: Int, order: Int) {
         (application as App).getAppExecutors().networkIO().execute {
-            val memorialList = (application as App).getRepository().getActiveTask(display, order)
+            val memorialList = (application as App).getRepository().getActiveTask(display, order) as ArrayList
+
+            val memorialMap = HashMap<Long, MemorialEntity>(memorialList.size)
+            for (item in memorialList) {
+                memorialMap.put(item.id, item)
+            }
+
+            val taskTopList = (application as App).getRepository().getTaskTopList()
+            val topMemorialList = ArrayList<MemorialEntity>(memorialMap.size);
+            for (item in taskTopList) {
+                val get = memorialMap.get(item.memorial_id)
+                if (get != null) {
+                    topMemorialList.add(get)
+                    memorialList.remove(get)
+                }
+            }
+            memorialList.addAll(0, topMemorialList)
             mTaskListFragment.newDate(memorialList)
         }
     }

@@ -4,6 +4,7 @@ import android.arch.persistence.db.SimpleSQLiteQuery
 import android.util.Log
 import com.smallraw.time.db.AppDatabase
 import com.smallraw.time.db.entity.MemorialEntity
+import com.smallraw.time.db.entity.MemorialTopEntity
 
 
 class DataRepository {
@@ -102,5 +103,27 @@ class DataRepository {
 
     fun delete(id: Long) {
         val deleteById = mDatabase.memorialDao().deleteById(id)
+    }
+
+
+    fun getTaskTopList(): MutableList<MemorialTopEntity> {
+        return mDatabase.memorialTopDao().selectAll()
+    }
+
+    fun isTopTask(id: Long): Boolean {
+        val int = mDatabase.memorialTopDao().isTopTaskByTaskId(id)
+        if (int > 0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    fun insertTopTask(memorialEntity: MemorialTopEntity): Long {
+        return mDatabase.memorialTopDao().insert(memorialEntity)
+    }
+
+    fun deleteTopTask(id: Long): Int {
+        return mDatabase.memorialTopDao().deleteTaskByTaskId(id)
     }
 }

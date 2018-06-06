@@ -22,10 +22,13 @@ public interface MemorialTopDao {
     @Insert
     long insert(MemorialTopEntity memorialTopEntity);
 
+    @Query("SELECT COUNT(*) FROM memorial_top WHERE memorial_id = :taskId")
+    int isTopTaskByTaskId(Long taskId);
+
     @Insert
     List<Long> insertAll(MemorialTopEntity[] memorialTopEntities);
 
-    @Query("SELECT * FROM memorial")
+    @Query("SELECT * FROM memorial_top ORDER BY createTime DESC")
     List<MemorialTopEntity> selectAll();
 
     @Update
@@ -36,4 +39,7 @@ public interface MemorialTopDao {
 
     @Query("DELETE FROM memorial_top")
     int deleteAll();
+
+    @Query("DELETE FROM memorial_top WHERE memorial_id = :taskId")
+    int deleteTaskByTaskId(Long taskId);
 }
