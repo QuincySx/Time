@@ -13,9 +13,7 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
-import com.smallraw.time.biz.deleteTask
-import com.smallraw.time.biz.unArchivingTask
-import com.smallraw.time.biz.unDeleteTask
+import com.smallraw.time.biz.*
 import com.smallraw.time.broadcast.RefreshMainDataReceiver
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.main.PreviewTaskActivity
@@ -156,12 +154,21 @@ class ArchivingClipManagerActivity : BaseTitleBarActivity() {
     }
 
     private fun refreshTopView(memorialEntity: MemorialEntity) {
-        (application as App).getAppExecutors().mainThread().execute {
-            tv_top.text = "置顶"
+        (application as App).getAppExecutors().diskIO().execute {
+            if (isTopTask(application, mMemorialEntity, 1)) {
+                (application as App).getAppExecutors().mainThread().execute {
+                    tv_top.text = "取消置顶"
+                }
+            } else {
+                (application as App).getAppExecutors().mainThread().execute {
+                    tv_top.text = "置顶"
+                }
+            }
         }
     }
 
     fun onClick(view: View) {
+        val intent = Intent()
         when (view.id) {
             R.id.tv_delete -> {
                 (application as App).getAppExecutors().diskIO().execute {
@@ -171,18 +178,22 @@ class ArchivingClipManagerActivity : BaseTitleBarActivity() {
                         deleteTask(application, mMemorialEntity)
                     }
                     refreshDeleteView(mMemorialEntity)
+                    intent.putExtra(PreviewTaskActivity.EXTER_DATA_POSITION, getIntent().getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1))
                 }
             }
             R.id.tv_top -> {
                 (application as App).getAppExecutors().diskIO().execute {
+                    if (isTopTask(application, mMemorialEntity, 1)) {
+                        unTopTask(application, mMemorialEntity)
+                    } else {
+                        topTask(application, mMemorialEntity, 1)
+                    }
                     refreshTopView(mMemorialEntity)
                 }
             }
             else -> {
             }
         }
-        val intent = Intent()
-        intent.putExtra(PreviewTaskActivity.EXTER_DATA_POSITION, getIntent().getIntExtra(PreviewTaskActivity.EXTER_DATA_POSITION, -1))
         setResult(Activity.RESULT_OK, intent)
     }
 

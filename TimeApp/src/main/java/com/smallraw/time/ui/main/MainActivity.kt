@@ -137,7 +137,7 @@ class MainActivity : BaseActivity() {
                 memorialMap.put(item.id, item)
             }
 
-            val taskTopList = (application as App).getRepository().getTaskTopList()
+            val taskTopList = (application as App).getRepository().getTaskTopList(0)
             val topMemorialList = ArrayList<MemorialEntity>(memorialMap.size);
             for (item in taskTopList) {
                 val get = memorialMap.get(item.memorial_id)

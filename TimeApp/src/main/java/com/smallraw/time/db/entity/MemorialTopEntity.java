@@ -19,6 +19,8 @@ public class MemorialTopEntity {
     private Long id;
     @ColumnInfo(name = "memorial_id")
     private Long memorial_id;
+    @ColumnInfo(name = "type")
+    private Long type;//0 主页 1 归档页面
     @ColumnInfo(name = "createTime")
     private Date createTime;
 
@@ -29,6 +31,13 @@ public class MemorialTopEntity {
     public MemorialTopEntity(Long memorial_id) {
         this.memorial_id = memorial_id;
         this.createTime = new Date();
+    }
+
+    @Ignore
+    public MemorialTopEntity(Long memorial_id, Long type) {
+        this.memorial_id = memorial_id;
+        this.createTime = new Date();
+        this.type = type;
     }
 
     public Long getId() {
@@ -53,5 +62,13 @@ public class MemorialTopEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
     }
 }

@@ -106,12 +106,12 @@ class DataRepository {
         mDatabase.memorialDao().deleteById(id)
     }
 
-    fun getTaskTopList(): MutableList<MemorialTopEntity> {
-        return mDatabase.memorialTopDao().selectAll()
+    fun getTaskTopList(type: Int): MutableList<MemorialTopEntity> {
+        return mDatabase.memorialTopDao().selectAllByType(type)
     }
 
-    fun isTopTask(id: Long): Boolean {
-        val int = mDatabase.memorialTopDao().isTopTaskByTaskId(id)
+    fun isTopTask(id: Long, type: Long): Boolean {
+        val int = mDatabase.memorialTopDao().isTopTaskByTaskId(id, type)
         if (int > 0) {
             return true
         } else {

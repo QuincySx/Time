@@ -25,7 +25,7 @@ import java.util.Date;
 @Database(entities = {
         MemorialEntity.class,
         MemorialTopEntity.class
-}, version = 2, exportSchema = false)
+}, version = 3, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "timeDb";
@@ -82,7 +82,10 @@ public abstract class AppDatabase extends RoomDatabase {
                         });
                     }
                 })
-                .addMigrations(Migration1_2).build();
+                .addMigrations(
+                        Migration1_2,
+                        Migration2_3
+                ).build();
     }
 
     private void updateDatabaseCreated(final Context context) {
@@ -108,6 +111,14 @@ public abstract class AppDatabase extends RoomDatabase {
                     "createTime INTEGER," +
                     "FOREIGN KEY(memorial_id) REFERENCES " + MemorialEntity.TABLE_NAME + "(id)" +
                     ")";
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration Migration2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            String sql = "ALTER TABLE " + MemorialTopEntity.TABLE_NAME + " ADD COLUMN type INTEGER";
             database.execSQL(sql);
         }
     };

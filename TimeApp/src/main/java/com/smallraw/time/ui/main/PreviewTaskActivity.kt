@@ -149,7 +149,7 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
 
     private fun refreshTopView(memorialEntity: MemorialEntity) {
         (application as App).getAppExecutors().diskIO().execute {
-            if (isTopTask(application, mMemorialEntity)) {
+            if (isTopTask(application, mMemorialEntity, 0)) {
                 (application as App).getAppExecutors().mainThread().execute {
                     tv_top.text = "取消置顶"
                 }
@@ -186,10 +186,10 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             }
             R.id.tv_top -> {
                 (application as App).getAppExecutors().diskIO().execute {
-                    if (isTopTask(application, mMemorialEntity)) {
+                    if (isTopTask(application, mMemorialEntity, 0)) {
                         unTopTask(application, mMemorialEntity)
                     } else {
-                        topTask(application, mMemorialEntity)
+                        topTask(application, mMemorialEntity, 0)
                     }
                     refreshTopView(mMemorialEntity)
                 }
