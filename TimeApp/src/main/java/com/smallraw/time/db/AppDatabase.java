@@ -7,26 +7,33 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
+import android.arch.persistence.room.migration.Migration;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.smallraw.time.AppExecutors;
 import com.smallraw.time.db.converter.DateConverter;
 import com.smallraw.time.db.dao.MemorialDao;
+import com.smallraw.time.db.dao.MemorialTopDao;
 import com.smallraw.time.db.entity.MemorialEntity;
+import com.smallraw.time.db.entity.MemorialTopEntity;
 
 import java.util.Date;
 
-@Database(entities = {MemorialEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {
+        MemorialEntity.class,
+        MemorialTopEntity.class
+}, version = 2, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "timeDb";
     private static AppDatabase sInstance;
 
     public abstract MemorialDao memorialDao();
+
+    public abstract MemorialTopDao memorialTopDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
@@ -51,7 +58,6 @@ public abstract class AppDatabase extends RoomDatabase {
                         appExecutors.diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
-                                Log.e("==","sdfsdfsdfsdfdsf");
                                 AppDatabase database = AppDatabase.getInstance(appContext,
                                         appExecutors);
                                 db.beginTransaction();
@@ -75,7 +81,8 @@ public abstract class AppDatabase extends RoomDatabase {
                             }
                         });
                     }
-                }).build();
+                })
+                .addMigrations(Migration1_2).build();
     }
 
     private void updateDatabaseCreated(final Context context) {
@@ -91,4 +98,17 @@ public abstract class AppDatabase extends RoomDatabase {
     public LiveData<Boolean> getDatabaseCreated() {
         return mIsDatabaseCreated;
     }
+
+    private static final Migration Migration1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            String sql = "CREATE TABLE " + MemorialTopEntity.TABLE_NAME + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "memorial_id INTEGER," +
+                    "createTime INTEGER," +
+                    "FOREIGN KEY(memorial_id) REFERENCES " + MemorialEntity.TABLE_NAME + "(id)" +
+                    ")";
+            database.execSQL(sql);
+        }
+    };
 }
