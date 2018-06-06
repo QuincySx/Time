@@ -71,8 +71,15 @@ public abstract class AppDatabase extends RoomDatabase {
                                     contentValues.put("createTime", new Date().getTime());
                                     contentValues.put("strike", false);
                                     contentValues.put("archive", false);
-                                    db.insert(MemorialEntity.TABLE_NAME, SQLiteDatabase
-                                            .CONFLICT_REPLACE, contentValues);
+                                    long insert = db.insert(MemorialEntity.TABLE_NAME,
+                                            SQLiteDatabase.CONFLICT_REPLACE, contentValues);
+
+                                    ContentValues contentTopValues = new ContentValues();
+                                    contentTopValues.put("memorial_id", insert);
+                                    contentTopValues.put("type", 0);
+                                    contentTopValues.put("createTime", new Date().getTime());
+                                    db.insert(MemorialTopEntity.TABLE_NAME,
+                                            SQLiteDatabase.CONFLICT_REPLACE, contentTopValues);
                                     db.setTransactionSuccessful();
                                 } finally {
                                     db.endTransaction();
