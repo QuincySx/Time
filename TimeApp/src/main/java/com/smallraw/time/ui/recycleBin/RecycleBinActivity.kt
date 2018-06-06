@@ -59,7 +59,7 @@ class RecycleBinActivity : BaseTitleBarActivity() {
 
     private fun initData() {
         (application as App).getAppExecutors().networkIO().execute {
-            val memorialList = (application as App).getRepository().getTask(true, false)
+            val memorialList = (application as App).getRepository().getTaskStrike(true)
             mTaskListFragment.newDate(memorialList)
         }
     }

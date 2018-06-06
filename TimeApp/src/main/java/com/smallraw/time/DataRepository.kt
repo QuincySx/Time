@@ -83,6 +83,11 @@ class DataRepository {
         return mDatabase.memorialDao().select(query)
     }
 
+    fun getTaskStrike(strike: Boolean = false): List<MemorialEntity> {
+        val query = SimpleSQLiteQuery("SELECT * FROM memorial WHERE strike = ? ORDER BY createTime DESC", arrayOf<Any>(strike))
+        return mDatabase.memorialDao().select(query)
+    }
+
     fun getTask(id: Long): MemorialEntity {
         return mDatabase.memorialDao().selectById(id)
     }
