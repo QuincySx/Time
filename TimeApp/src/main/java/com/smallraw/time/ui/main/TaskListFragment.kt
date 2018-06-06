@@ -77,6 +77,10 @@ class TaskListFragment : BaseFragment() {
         return mMemorialList
     }
 
+    fun clearDate() {
+        mMemorialList.clear()
+    }
+
     fun newDate(data: List<MemorialEntity>) {
         mMemorialList.clear()
         mMemorialList.addAll(data)

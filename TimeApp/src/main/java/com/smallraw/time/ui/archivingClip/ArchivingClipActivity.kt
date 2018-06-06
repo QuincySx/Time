@@ -11,6 +11,7 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.biz.deleteTaskAll
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.adapter.OnItemClickListener
 import com.smallraw.time.ui.main.PreviewTaskActivity
@@ -68,6 +69,13 @@ class ArchivingClipActivity : BaseTitleBarActivity() {
 
     private fun initTitleRight() {
         val right = newTitleRightView()
+        right.setOnClickListener {
+            (application as App).getAppExecutors().diskIO().execute {
+                deleteTaskAll(application, mTaskListFragment.getDate())
+                mTaskListFragment.clearDate()
+                mTaskListFragment.notifyDataSetChanged()
+            }
+        }
         addRightView(right)
     }
 

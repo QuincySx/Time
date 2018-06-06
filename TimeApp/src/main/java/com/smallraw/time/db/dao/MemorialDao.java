@@ -47,6 +47,9 @@ public interface MemorialDao {
     @Update
     int update(MemorialEntity memorialEntity);
 
+    @Update
+    int update(List<MemorialEntity> memorialEntity);
+
     @Query("DELETE FROM memorial WHERE id = :id")
     int deleteById(long id);
 

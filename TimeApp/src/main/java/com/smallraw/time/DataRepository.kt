@@ -101,6 +101,10 @@ class DataRepository {
         val deleteById = mDatabase.memorialDao().update(memorialEntity)
     }
 
+    fun update(memorialEntitys: List<MemorialEntity>) {
+        val deleteById = mDatabase.memorialDao().update(memorialEntitys)
+    }
+
     fun delete(id: Long) {
         mDatabase.memorialTopDao().deleteByTaskId(id)
         mDatabase.memorialDao().deleteById(id)
@@ -123,7 +127,7 @@ class DataRepository {
         return mDatabase.memorialTopDao().insert(memorialEntity)
     }
 
-    fun deleteTopTask(id: Long,type: Long): Int {
-        return mDatabase.memorialTopDao().deleteTaskByTaskId(id,type)
+    fun deleteTopTask(id: Long, type: Long): Int {
+        return mDatabase.memorialTopDao().deleteTaskByTaskId(id, type)
     }
 }

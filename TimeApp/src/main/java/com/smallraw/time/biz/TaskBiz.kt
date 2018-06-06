@@ -15,6 +15,13 @@ fun deleteTask(app: Application, memorialEntity: MemorialEntity) {
     (app as App).getRepository().update(memorialEntity)
 }
 
+fun deleteTaskAll(app: Application, memorialEntitys: List<MemorialEntity>) {
+    for (item in memorialEntitys) {
+        item.isStrike = true
+    }
+    (app as App).getRepository().update(memorialEntitys)
+}
+
 fun unDeleteTask(app: Application, memorialEntity: MemorialEntity) {
     memorialEntity.isStrike = false
     (app as App).getRepository().update(memorialEntity)
@@ -41,5 +48,5 @@ fun topTask(app: Application, memorialEntity: MemorialEntity, type: Long) {
 }
 
 fun unTopTask(app: Application, memorialEntity: MemorialEntity, type: Long) {
-    (app as App).getRepository().deleteTopTask(memorialEntity.id,type)
+    (app as App).getRepository().deleteTopTask(memorialEntity.id, type)
 }
