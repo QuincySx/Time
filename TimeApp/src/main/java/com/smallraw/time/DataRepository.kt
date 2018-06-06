@@ -123,7 +123,7 @@ class DataRepository {
         return mDatabase.memorialTopDao().insert(memorialEntity)
     }
 
-    fun deleteTopTask(id: Long): Int {
-        return mDatabase.memorialTopDao().deleteTaskByTaskId(id)
+    fun deleteTopTask(id: Long,type: Long): Int {
+        return mDatabase.memorialTopDao().deleteTaskByTaskId(id,type)
     }
 }

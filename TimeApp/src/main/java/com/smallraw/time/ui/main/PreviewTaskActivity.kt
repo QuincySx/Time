@@ -187,7 +187,7 @@ class PreviewTaskActivity : BaseTitleBarActivity() {
             R.id.tv_top -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (isTopTask(application, mMemorialEntity, 0)) {
-                        unTopTask(application, mMemorialEntity)
+                        unTopTask(application, mMemorialEntity, 0)
                     } else {
                         topTask(application, mMemorialEntity, 0)
                     }

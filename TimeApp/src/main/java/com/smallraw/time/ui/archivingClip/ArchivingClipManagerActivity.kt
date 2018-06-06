@@ -184,7 +184,7 @@ class ArchivingClipManagerActivity : BaseTitleBarActivity() {
             R.id.tv_top -> {
                 (application as App).getAppExecutors().diskIO().execute {
                     if (isTopTask(application, mMemorialEntity, 1)) {
-                        unTopTask(application, mMemorialEntity)
+                        unTopTask(application, mMemorialEntity, 1)
                     } else {
                         topTask(application, mMemorialEntity, 1)
                     }

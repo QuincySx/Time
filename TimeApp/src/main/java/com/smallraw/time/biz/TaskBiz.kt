@@ -30,16 +30,16 @@ fun unArchivingTask(app: Application, memorialEntity: MemorialEntity) {
     (app as App).getRepository().update(memorialEntity)
 }
 
-fun isTopTask(app: Application, memorialEntity: MemorialEntity,type: Long): Boolean {
-    return (app as App).getRepository().isTopTask(memorialEntity.id,type)
+fun isTopTask(app: Application, memorialEntity: MemorialEntity, type: Long): Boolean {
+    return (app as App).getRepository().isTopTask(memorialEntity.id, type)
 }
 
 fun topTask(app: Application, memorialEntity: MemorialEntity, type: Long) {
     val memorialTopEntity = MemorialTopEntity(memorialEntity.id, type)
-    (app as App).getRepository().deleteTopTask(memorialEntity.id)
+//    (app as App).getRepository().deleteTopTask(memorialEntity.id)
     (app as App).getRepository().insertTopTask(memorialTopEntity)
 }
 
-fun unTopTask(app: Application, memorialEntity: MemorialEntity) {
-    (app as App).getRepository().deleteTopTask(memorialEntity.id)
+fun unTopTask(app: Application, memorialEntity: MemorialEntity, type: Long) {
+    (app as App).getRepository().deleteTopTask(memorialEntity.id,type)
 }

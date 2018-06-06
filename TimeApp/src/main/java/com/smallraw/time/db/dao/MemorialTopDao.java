@@ -46,6 +46,6 @@ public interface MemorialTopDao {
     @Query("DELETE FROM memorial_top")
     int deleteAll();
 
-    @Query("DELETE FROM memorial_top WHERE memorial_id = :taskId")
-    int deleteTaskByTaskId(Long taskId);
+    @Query("DELETE FROM memorial_top WHERE memorial_id = :taskId AND type = :type")
+    int deleteTaskByTaskId(Long taskId, Long type);
 }
