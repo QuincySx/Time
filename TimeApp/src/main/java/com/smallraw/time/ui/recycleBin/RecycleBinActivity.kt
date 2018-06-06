@@ -49,7 +49,7 @@ class RecycleBinActivity : BaseTitleBarActivity() {
                 mTaskListFragment.notifyDataSetChanged()
             }
         }
-        return right;
+        return right
     }
 
     private fun initFragment() {
