@@ -5,6 +5,11 @@ import com.smallraw.time.App
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.db.entity.MemorialTopEntity
 
+fun thoroughDeleteTask(app: Application, memorialEntity: MemorialEntity) {
+    memorialEntity.isStrike = true
+    (app as App).getRepository().delete(memorialEntity.id)
+}
+
 fun deleteTask(app: Application, memorialEntity: MemorialEntity) {
     memorialEntity.isStrike = true
     (app as App).getRepository().update(memorialEntity)

@@ -102,9 +102,9 @@ class DataRepository {
     }
 
     fun delete(id: Long) {
-        val deleteById = mDatabase.memorialDao().deleteById(id)
+        mDatabase.memorialTopDao().deleteByTaskId(id)
+        mDatabase.memorialDao().deleteById(id)
     }
-
 
     fun getTaskTopList(): MutableList<MemorialTopEntity> {
         return mDatabase.memorialTopDao().selectAll()
