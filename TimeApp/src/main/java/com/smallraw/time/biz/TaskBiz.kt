@@ -10,6 +10,13 @@ fun thoroughDeleteTask(app: Application, memorialEntity: MemorialEntity) {
     (app as App).getRepository().delete(memorialEntity.id)
 }
 
+fun thoroughDeleteTaskAll(app: Application, memorialEntitys: List<MemorialEntity>) {
+    for (item in memorialEntitys) {
+        (app as App).getRepository().deleteTopTaskAll(item.id)
+    }
+    (app as App).getRepository().deleteTask(memorialEntitys)
+}
+
 fun deleteTask(app: Application, memorialEntity: MemorialEntity) {
     memorialEntity.isStrike = true
     (app as App).getRepository().update(memorialEntity)

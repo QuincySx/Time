@@ -110,6 +110,10 @@ class DataRepository {
         mDatabase.memorialDao().deleteById(id)
     }
 
+    fun deleteTask(memorialEntitys: List<MemorialEntity>) {
+        mDatabase.memorialDao().deletes(memorialEntitys)
+    }
+
     fun getTaskTopList(type: Int): MutableList<MemorialTopEntity> {
         return mDatabase.memorialTopDao().selectAllByType(type)
     }
@@ -129,5 +133,9 @@ class DataRepository {
 
     fun deleteTopTask(id: Long, type: Long): Int {
         return mDatabase.memorialTopDao().deleteTaskByTaskId(id, type)
+    }
+
+    fun deleteTopTaskAll(id: Long): Int {
+        return mDatabase.memorialTopDao().deleteByTaskId(id)
     }
 }

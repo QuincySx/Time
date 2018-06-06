@@ -11,6 +11,7 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
+import com.smallraw.time.biz.thoroughDeleteTaskAll
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.adapter.OnItemClickListener
 import com.smallraw.time.ui.archivingClip.ArchivingClipManagerActivity
@@ -41,6 +42,13 @@ class RecycleBinActivity : BaseTitleBarActivity() {
         val layoutParams = ViewGroup.LayoutParams(RudenessScreenHelper.pt2px(this, 35F).toInt(), RudenessScreenHelper.pt2px(this, 35F).toInt())
         right.layoutParams = layoutParams
         right.setBackgroundResource(R.drawable.ic_smash_black)
+        right.setOnClickListener {
+            (application as App).getAppExecutors().diskIO().execute {
+                thoroughDeleteTaskAll(application, mTaskListFragment.getDate())
+                mTaskListFragment.clearDate()
+                mTaskListFragment.notifyDataSetChanged()
+            }
+        }
         return right;
     }
 
