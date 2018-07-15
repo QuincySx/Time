@@ -13,8 +13,8 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
-import com.smallraw.time.biz.thoroughDeleteTask
-import com.smallraw.time.biz.unDeleteTask
+import com.smallraw.time.model.thoroughDeleteTask
+import com.smallraw.time.model.unDeleteTask
 import com.smallraw.time.broadcast.RefreshMainDataReceiver
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.main.PreviewTaskActivity

@@ -1,4 +1,4 @@
-package com.smallraw.time.biz
+package com.smallraw.time.model
 
 import android.app.Application
 import com.smallraw.time.App

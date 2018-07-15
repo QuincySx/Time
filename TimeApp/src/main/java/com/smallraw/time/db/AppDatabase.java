@@ -3,6 +3,7 @@ package com.smallraw.time.db;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
@@ -17,15 +18,17 @@ import com.smallraw.time.AppExecutors;
 import com.smallraw.time.db.converter.DateConverter;
 import com.smallraw.time.db.dao.MemorialDao;
 import com.smallraw.time.db.dao.MemorialTopDao;
+import com.smallraw.time.db.entity.ConfigEntity;
 import com.smallraw.time.db.entity.MemorialEntity;
 import com.smallraw.time.db.entity.MemorialTopEntity;
 
 import java.util.Date;
 
 @Database(entities = {
+        ConfigEntity.class,
         MemorialEntity.class,
         MemorialTopEntity.class
-}, version = 3, exportSchema = false)
+}, version = 4, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "timeDb";
@@ -91,7 +94,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 })
                 .addMigrations(
                         Migration1_2,
-                        Migration2_3
+                        Migration2_3,
+                        Migration3_4
                 ).build();
     }
 
@@ -126,6 +130,20 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             String sql = "ALTER TABLE " + MemorialTopEntity.TABLE_NAME + " ADD COLUMN type INTEGER";
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration Migration3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            String sql = "CREATE TABLE " + ConfigEntity.TABLE_NAME + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," +
+                    "value TEXT," +
+                    "overTime INTEGER," +
+                    "createTime INTEGER" +
+                    ")";
             database.execSQL(sql);
         }
     };

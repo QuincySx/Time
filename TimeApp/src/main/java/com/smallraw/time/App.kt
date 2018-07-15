@@ -6,18 +6,22 @@ import com.smallraw.time.db.AppDatabase
 
 
 public class App : Application() {
-    private lateinit var mApp: App;
-    private lateinit var mAppExecutors: AppExecutors;
+    companion object {
+        private lateinit var mApp: App
+
+        @JvmStatic
+        fun getInstance(): App {
+            return mApp;
+        }
+    }
+
+    private lateinit var mAppExecutors: AppExecutors
 
     override fun onCreate() {
         super.onCreate()
-        mApp = this;
+        mApp = this
         mAppExecutors = AppExecutors()
         RudenessScreenHelper(this, 360F).activate()
-    }
-
-    fun getInstance(): App {
-        return mApp;
     }
 
     fun getDatabase(): AppDatabase {

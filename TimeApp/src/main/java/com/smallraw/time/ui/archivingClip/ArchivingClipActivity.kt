@@ -11,7 +11,7 @@ import com.smallraw.time.App
 import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
-import com.smallraw.time.biz.deleteTaskAll
+import com.smallraw.time.model.deleteTaskAll
 import com.smallraw.time.db.entity.MemorialEntity
 import com.smallraw.time.ui.adapter.OnItemClickListener
 import com.smallraw.time.ui.main.PreviewTaskActivity
