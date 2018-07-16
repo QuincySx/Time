@@ -10,8 +10,18 @@ private val df = object : ThreadLocal<DateFormat>() {
     }
 }
 
+private val df1 = object : ThreadLocal<DateFormat>() {
+    override fun initialValue(): DateFormat {
+        return SimpleDateFormat("MM月dd日")
+    }
+}
+
 fun dateFormat(date: Date): String {
     return df.get().format(date)
+}
+
+fun monthDayFormat(date: Date): String {
+    return df1.get().format(date)
 }
 
 fun dateParse(date: String): Date {

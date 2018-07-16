@@ -12,25 +12,36 @@ public class WeatherModel() {
     }
 
     fun getWertherNow(callback: BaseCallback<Weather>) {
-        try {
-            val locationModel = LocationModel()
-            val currentLocation = locationModel.getCurrentLocation(App.getInstance())
+        val exception = App.getInstance().getAppExecutors()
+        exception.networkIO().execute {
+            try {
+                val locationModel = LocationModel()
+                val currentLocation = locationModel.getCurrentLocation(App.getInstance())
 
-            val weatherNow = WeatherRequest.getWeatherNow(currentLocation)
-            if (weatherNow != null) {
-                ConfigModel.set(WeatherNow, JSON.toJSONString(weatherNow), 1000 * 60 * 60 * 24)
-                callback.onSuccess(weatherNow)
-            } else {
-                val get = ConfigModel.get(WeatherNow)
-                if (get != "") {
-                    val weather = JSON.toJSON(get) as Weather
-                    callback.onSuccess(weather)
+                val weatherNow = WeatherRequest.getWeatherNow(currentLocation)
+                if (weatherNow != null) {
+                    ConfigModel.set(WeatherNow, JSON.toJSONString(weatherNow), 1000 * 60 * 60 * 24)
+                    exception.mainThread().execute {
+                        callback.onSuccess(weatherNow)
+                    }
                 } else {
-                    callback.onError(Exception())
+                    val get = ConfigModel.get(WeatherNow)
+                    if (get != "") {
+                        val weather = JSON.toJSON(get) as Weather
+                        exception.mainThread().execute {
+                            callback.onSuccess(weather)
+                        }
+                    } else {
+                        exception.mainThread().execute {
+                            callback.onError(Exception())
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                exception.mainThread().execute {
+                    callback.onError(e)
                 }
             }
-        } catch (e: Exception) {
-            callback.onError(e)
         }
     }
 }

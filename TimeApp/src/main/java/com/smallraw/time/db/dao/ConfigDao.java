@@ -1,5 +1,6 @@
 package com.smallraw.time.db.dao;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -9,6 +10,7 @@ import com.smallraw.time.db.entity.MemorialEntity;
 
 import java.util.List;
 
+@Dao
 public interface ConfigDao {
     @Query("SELECT COUNT(*) FROM config")
     int count();

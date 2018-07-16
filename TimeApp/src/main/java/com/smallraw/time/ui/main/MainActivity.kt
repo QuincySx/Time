@@ -14,6 +14,9 @@ import com.smallraw.time.R
 import com.smallraw.time.base.BaseActivity
 import com.smallraw.time.broadcast.RefreshMainDataReceiver
 import com.smallraw.time.db.entity.MemorialEntity
+import com.smallraw.time.entity.Weather
+import com.smallraw.time.model.BaseCallback
+import com.smallraw.time.model.WeatherModel
 import com.smallraw.time.ui.about.AboutActivity
 import com.smallraw.time.ui.adapter.OnItemClickListener
 import com.smallraw.time.ui.adapter.OnItemLongClickListener
@@ -21,7 +24,10 @@ import com.smallraw.time.ui.adapter.ViewPagerAdapter
 import com.smallraw.time.ui.archivingClip.ArchivingClipActivity
 import com.smallraw.time.ui.recycleBin.RecycleBinActivity
 import com.smallraw.time.ui.taskInfo.TaskInfoActivity
+import com.smallraw.time.utils.getWeekOfDate
+import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 class MainActivity : BaseActivity() {
@@ -41,6 +47,13 @@ class MainActivity : BaseActivity() {
         initDiaplayClickListener()
         initOrderClickListener()
         initBroadcastReceiver()
+        initWeatherNow()
+        setDateData()
+    }
+
+    private fun setDateData() {
+        tv_date.text = monthDayFormat(Date())
+        tv_week.text = getWeekOfDate(this, Date())
     }
 
     private fun initBroadcastReceiver() {
@@ -100,6 +113,30 @@ class MainActivity : BaseActivity() {
 
             }
         })
+    }
+
+    private fun initWeatherNow() {
+        WeatherModel().getWertherNow(object : BaseCallback<Weather> {
+            override fun onSuccess(data: Weather) {
+                setWeatherData(data)
+            }
+
+            override fun onError(e: Exception) {
+                setWeatherData(null)
+            }
+        })
+    }
+
+    private fun setWeatherData(data: Weather?) {
+        if (data == null) {
+            img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            tv_temperature.text = "0°C"
+            tv_weather.text = "暂无"
+        } else {
+            img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            tv_temperature.text = "${data.tmp}°C"
+            tv_weather.text = data.cond_txt
+        }
     }
 
     fun onDrawerClick(view: View) {
