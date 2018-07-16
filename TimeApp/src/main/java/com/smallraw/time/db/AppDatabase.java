@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 
 import com.smallraw.time.AppExecutors;
 import com.smallraw.time.db.converter.DateConverter;
+import com.smallraw.time.db.dao.ConfigDao;
 import com.smallraw.time.db.dao.MemorialDao;
 import com.smallraw.time.db.dao.MemorialTopDao;
 import com.smallraw.time.db.entity.ConfigEntity;
@@ -37,6 +38,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract MemorialDao memorialDao();
 
     public abstract MemorialTopDao memorialTopDao();
+
+    public abstract ConfigDao configDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
