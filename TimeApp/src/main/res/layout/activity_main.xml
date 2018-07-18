@@ -16,16 +16,16 @@
         app:cardElevation="70pt"
         app:cardUseCompatPadding="false">
 
-        <LinearLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F9F9F9"
-            android:orientation="vertical">
+            android:background="#F9F9F9">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="157pt"
                 android:background="#ffffffff"
+                android:elevation="1pt"
                 android:paddingTop="23pt">
 
                 <ImageView
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10pt"
-                     android:textColor="#484848"
+                    android:textColor="#484848"
                     android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/img_weather"
                     app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
@@ -84,14 +84,71 @@
                     tools:text="晴" />
             </android.support.constraint.ConstraintLayout>
 
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_min_title"
+                android:layout_width="match_parent"
+                android:layout_height="73pt"
+                android:alpha="0"
+                android:background="#ffffffff"
+                android:elevation="1pt"
+                android:paddingTop="23pt">
+
+                <ImageView
+                    android:id="@+id/img_min_weather"
+                    android:layout_width="32pt"
+                    android:layout_height="32pt"
+                    android:layout_marginLeft="17pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_weather_cloudy_clear" />
+
+                <TextView
+                    android:id="@+id/tv_min_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/img_min_weather"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="晴 · 26℃" />
+
+                <TextView
+                    android:id="@+id/tv_min_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_min_week"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5月11日" />
+
+                <TextView
+                    android:id="@+id/tv_min_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="周六" />
+            </android.support.constraint.ConstraintLayout>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="26pt"
                 android:overScrollMode="never"
-                android:scrollbars="none" />
-        </LinearLayout>
+                android:scrollbars="none"
+                app:layout_behavior=".ui.main.Behavior" />
+        </android.support.design.widget.CoordinatorLayout>
     </android.support.v7.widget.CardView>
 
     <LinearLayout

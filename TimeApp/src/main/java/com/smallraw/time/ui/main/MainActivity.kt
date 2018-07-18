@@ -54,6 +54,8 @@ class MainActivity : BaseActivity() {
     private fun setDateData() {
         tv_date.text = monthDayFormat(Date())
         tv_week.text = getWeekOfDate(this, Date())
+        tv_min_date.text = monthDayFormat(Date())
+        tv_min_week.text = getWeekOfDate(this, Date())
     }
 
     private fun initBroadcastReceiver() {
@@ -132,10 +134,14 @@ class MainActivity : BaseActivity() {
             img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
             tv_temperature.text = "0°C"
             tv_weather.text = "暂无"
+            img_min_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            tv_min_temperature.text = "暂无 · 0°C"
         } else {
             img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
             tv_temperature.text = "${data.tmp}°C"
             tv_weather.text = data.cond_txt
+            img_min_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            tv_min_temperature.text = "${data.cond_txt} · ${data.tmp}°C"
         }
     }
 
