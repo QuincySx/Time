@@ -22,6 +22,7 @@
             android:background="#F9F9F9">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_max_title"
                 android:layout_width="match_parent"
                 android:layout_height="157pt"
                 android:background="#ffffffff"

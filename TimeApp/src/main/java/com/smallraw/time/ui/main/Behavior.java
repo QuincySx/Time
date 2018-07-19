@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.smallraw.time.R;
+
 public class Behavior extends CoordinatorLayout.Behavior<ViewPager> {
     private Context mContext;
     private float mTitleMaxY = 0;
@@ -21,12 +23,12 @@ public class Behavior extends CoordinatorLayout.Behavior<ViewPager> {
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, ViewPager child, View dependency) {
-        Log.e("====", child.getClass().getSimpleName() + "     " + dependency.getClass().getSimpleName());
-        boolean dependsOn = dependency instanceof ConstraintLayout;
+//        Log.e("====", child.getClass().getSimpleName() + "     " + dependency.getClass().getSimpleName());
+        mTitleMinY = parent.getChildAt(1).getMeasuredHeight();
+        boolean dependsOn = dependency.getId() == R.id.layout_max_title;
         if (dependsOn) {
             mTitleMaxY = dependency.getMeasuredHeight();
         }
-        mTitleMinY = parent.getChildAt(1).getMeasuredHeight();
         return dependsOn;
     }
 
@@ -101,9 +103,6 @@ public class Behavior extends CoordinatorLayout.Behavior<ViewPager> {
 
     private void scrollHeadView(float currentTitleY, View maxView, View minView) {
         float totalProgress = 1 - currentTitleY / (mTitleMaxY - mTitleMinY);
-        if (totalProgress == Float.POSITIVE_INFINITY || totalProgress == Float.NEGATIVE_INFINITY) {
-            totalProgress = 1;
-        }
 
         float offsetProgress = 0.3F;
         if (totalProgress < 1 - offsetProgress) {
@@ -120,7 +119,7 @@ public class Behavior extends CoordinatorLayout.Behavior<ViewPager> {
 //            float maxProgress = 1 - offsetProgress;
             float v = (offsetProgress - totalProgress) / offsetProgress;
 
-            Log.e("===", "   totalProgress:" + totalProgress + "   Progress:" + (offsetProgress) + "   v:" + v);
+//            Log.e("===", "   totalProgress:" + totalProgress + "   Progress:" + (offsetProgress) + "   v:" + v);
             minView.setAlpha(v);
         } else {
             minView.setAlpha(0f);
