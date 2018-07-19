@@ -6,6 +6,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import com.smallraw.time.App
 import java.util.concurrent.CountDownLatch
 
 public class LocationModel {
@@ -25,27 +26,29 @@ public class LocationModel {
 
             var location = ""
             if (provider != "") {
-                systemService.requestLocationUpdates(provider, 5 * 60 * 1000L, 1f, object : LocationListener {
-                    override fun onLocationChanged(local: Location?) {
-                        if (local != null) {
-                            location = "${local.getLongitude()},${local.getLatitude()}"
+                App.getInstance().getAppExecutors().mainThread().execute {
+                    systemService.requestLocationUpdates(provider, 5 * 60 * 1000L, 1f, object : LocationListener {
+                        override fun onLocationChanged(local: Location?) {
+                            if (local != null) {
+                                location = "${local.getLongitude()},${local.getLatitude()}"
+                            }
+                            countDownLatch.countDown()
                         }
-                        countDownLatch.countDown()
-                    }
 
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
 
-                    }
+                        }
 
-                    override fun onProviderEnabled(provider: String?) {
+                        override fun onProviderEnabled(provider: String?) {
 
-                    }
+                        }
 
-                    override fun onProviderDisabled(provider: String?) {
+                        override fun onProviderDisabled(provider: String?) {
 
-                    }
+                        }
 
-                })
+                    })
+                }
             }
             countDownLatch.await()
 

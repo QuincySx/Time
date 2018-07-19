@@ -9,9 +9,13 @@ fun is2String(inputStream: InputStream): String {
     val outputStream = ByteArrayOutputStream()
     var i: Int = -1
 
+    i = inputStream.read()
     while (i != -1) {
         outputStream.write(i)
         i = inputStream.read()
     }
-    return String(outputStream.toByteArray(), Charsets.UTF_8)
+    val toByteArray = outputStream.toByteArray()
+    outputStream.flush()
+    outputStream.close()
+    return String(toByteArray, Charsets.UTF_8)
 }
