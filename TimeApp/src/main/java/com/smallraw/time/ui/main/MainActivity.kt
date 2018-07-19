@@ -28,6 +28,9 @@ import com.smallraw.time.utils.getWeekOfDate
 import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.graphics.Point
+import android.support.v4.widget.ViewDragHelper
+import android.view.MotionEvent
 
 
 class MainActivity : BaseActivity() {
@@ -41,9 +44,11 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setDrawerLeftEdgeSize(layout_drawer, 0.33f)
 
         initDrawerView()
         initViewPager()
+//        dispatchDrawerViewTouchEvent()
         initDiaplayClickListener()
         initOrderClickListener()
         initBroadcastReceiver()
@@ -108,11 +113,11 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDrawerClosed(drawerView: View) {
-
+                setDrawerLeftEdgeSize(layout_drawer, 3.3f)
             }
 
             override fun onDrawerOpened(drawerView: View) {
-
+                setDrawerLeftEdgeSize(layout_drawer, 1f)
             }
         })
     }
@@ -251,5 +256,28 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         unregisterReceiver(localBroadcaseReceiver)
         super.onDestroy()
+    }
+
+    private fun setDrawerLeftEdgeSize(drawerLayout: DrawerLayout?, displayWidthPercentage: Float) {
+        if (drawerLayout == null) return
+        try {
+            // 找到 ViewDragHelper 并设置 Accessible 为true
+            val leftDraggerField = drawerLayout.javaClass.getDeclaredField("mLeftDragger")//Right
+            leftDraggerField.isAccessible = true
+            val leftDragger = leftDraggerField.get(drawerLayout) as ViewDragHelper
+
+            // 找到 edgeSizeField 并设置 Accessible 为true
+            val edgeSizeField = leftDragger.javaClass.getDeclaredField("mEdgeSize")
+            edgeSizeField.isAccessible = true
+            val edgeSize = edgeSizeField.getInt(leftDragger)
+
+            // 设置新的边缘大小
+            val displaySize = Point()
+            windowManager.defaultDisplay.getSize(displaySize)
+            edgeSizeField.setInt(leftDragger, Math.max(edgeSize, (displaySize.x * displayWidthPercentage).toInt()))
+        } catch (e: NoSuchFieldException) {
+        } catch (e: IllegalArgumentException) {
+        } catch (e: IllegalAccessException) {
+        }
     }
 }
