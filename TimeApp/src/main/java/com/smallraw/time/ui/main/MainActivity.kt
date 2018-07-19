@@ -29,6 +29,8 @@ import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import android.graphics.Point
+import android.support.v4.view.PagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v4.widget.ViewDragHelper
 import android.view.MotionEvent
 
@@ -48,7 +50,6 @@ class MainActivity : BaseActivity() {
 
         initDrawerView()
         initViewPager()
-//        dispatchDrawerViewTouchEvent()
         initDiaplayClickListener()
         initOrderClickListener()
         initBroadcastReceiver()
@@ -94,6 +95,26 @@ class MainActivity : BaseActivity() {
         viewPagerAdapter.addFragment(mTaskListFragment)
         viewPagerAdapter.addFragment(AddTaskOptionFragment())
         view_pager.adapter = viewPagerAdapter
+        view_pager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                when(position){
+                    0->{
+                        layout_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    }
+                    else->{
+                        layout_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    }
+                }
+            }
+        })
     }
 
     private fun initDrawerView() {
@@ -113,11 +134,9 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                setDrawerLeftEdgeSize(layout_drawer, 3.3f)
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                setDrawerLeftEdgeSize(layout_drawer, 1f)
             }
         })
     }
