@@ -168,7 +168,7 @@ public class WeatherModel() {
     fun getWeatherCache(callback: BaseCallback<Weather>) {
         exception.networkIO().execute {
             try {
-                val get = ConfigModel.get(WeatherNow)
+                val get = ConfigModel.get(WeatherNow, false)
                 if (get != "") {
                     val weather = JSON.parseObject(get, Weather::class.java)
                     exception.mainThread().execute {
