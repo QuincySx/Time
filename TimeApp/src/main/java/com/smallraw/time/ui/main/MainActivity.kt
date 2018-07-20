@@ -140,6 +140,15 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initWeatherNow() {
+        WeatherModel().getWeatherCache(object : BaseCallback<Weather> {
+            override fun onSuccess(data: Weather) {
+                setWeatherData(data)
+            }
+
+            override fun onError(e: Exception) {
+                setWeatherData(null)
+            }
+        })
         WeatherModel().getWeatherNow(object : BaseCallback<Weather> {
             override fun onSuccess(data: Weather) {
                 setWeatherData(data)
@@ -152,20 +161,23 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setWeatherData(data: Weather?) {
-        if (data == null) {
-            img_weather.setBackgroundResource(R.drawable.ic_weather_qing)
-            tv_temperature.text = "0°C"
-            tv_weather.text = "暂无"
-            img_min_weather.setBackgroundResource(R.drawable.ic_weather_qing)
-            tv_min_temperature.text = "暂无 · 0°C"
-        } else {
-            val weatherImage = WeatherModel.getWeatherImage(data.cond_code)
-//            val weatherImage = R.drawable.ic_weather_qing
-            img_weather.setBackgroundResource(weatherImage)
-            tv_temperature.text = "${data.tmp}°C"
-            tv_weather.text = data.cond_txt
-            img_min_weather.setBackgroundResource(weatherImage)
-            tv_min_temperature.text = "${data.cond_txt} · ${data.tmp}°C"
+        try {
+            if (data == null) {
+                img_weather.setBackgroundResource(R.drawable.ic_weather_qing)
+                tv_temperature.text = "0°C"
+                tv_weather.text = "暂无"
+                img_min_weather.setBackgroundResource(R.drawable.ic_weather_qing)
+                tv_min_temperature.text = "暂无 · 0°C"
+            } else {
+                val weatherImage = WeatherModel.getWeatherImage(data.cond_code)
+                img_weather.setBackgroundResource(weatherImage)
+                tv_temperature.text = "${data.tmp}°C"
+                tv_weather.text = data.cond_txt
+                img_min_weather.setBackgroundResource(weatherImage)
+                tv_min_temperature.text = "${data.cond_txt} · ${data.tmp}°C"
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

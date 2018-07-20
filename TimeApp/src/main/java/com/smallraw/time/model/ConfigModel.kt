@@ -39,11 +39,11 @@ public class ConfigModel {
             val findByKey = configDao.findByKey(key)
             if (findByKey.size > 0) {
                 val get = findByKey.get(0)
-                val time = get.createTime.time + get.overTime
-                val nowTime = Date().time
-                if (nowTime < time) {
-                    return get.value
-                }
+//                val time = get.createTime.time + get.overTime
+//                val nowTime = Date().time
+//                if (nowTime < time) {
+                return get.value
+//                }
             }
             return ""
         }
