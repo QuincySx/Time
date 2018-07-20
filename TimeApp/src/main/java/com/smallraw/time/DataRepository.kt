@@ -120,11 +120,7 @@ class DataRepository {
 
     fun isTopTask(id: Long, type: Long): Boolean {
         val int = mDatabase.memorialTopDao().isTopTaskByTaskId(id, type)
-        if (int > 0) {
-            return true
-        } else {
-            return false
-        }
+        return int > 0
     }
 
     fun insertTopTask(memorialEntity: MemorialTopEntity): Long {

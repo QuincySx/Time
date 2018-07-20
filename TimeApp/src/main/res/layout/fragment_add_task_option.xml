@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:gravity="center_horizontal">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_reciprocal"
         android:layout_width="238pt"
         android:layout_height="77pt"
-        android:layout_marginTop="60pt"
-        android:background="@drawable/shape_add_task_reciprocal_bg">
+        app:layout_constraintVertical_bias="0.24"
+        android:background="@drawable/shape_add_task_reciprocal_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -24,7 +27,8 @@
             android:textSize="20pt"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
@@ -35,7 +39,8 @@
             android:textColor="#FFFFFF"
             android:textSize="12pt"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="35pt"
             android:layout_height="35pt"
@@ -43,7 +48,7 @@
             android:layout_marginRight="1pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_add_task_reciprocal"/>
+            app:srcCompat="@drawable/ic_add_task_reciprocal" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -51,7 +56,11 @@
         android:layout_width="238pt"
         android:layout_height="77pt"
         android:layout_marginTop="36pt"
-        android:background="@drawable/shape_add_task_accumulative_bg">
+        android:background="@drawable/shape_add_task_accumulative_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_reciprocal">
+
         <TextView
             android:id="@+id/tv_title1"
             android:layout_width="wrap_content"
@@ -63,7 +72,8 @@
             android:textSize="20pt"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_content1"
             android:layout_width="wrap_content"
@@ -74,7 +84,8 @@
             android:textColor="#FFFFFF"
             android:textSize="12pt"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title1"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_title1" />
+
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="35pt"
             android:layout_height="35pt"
@@ -82,6 +93,6 @@
             android:layout_marginRight="1pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_add_task_accumulative"/>
+            app:srcCompat="@drawable/ic_add_task_accumulative" />
     </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

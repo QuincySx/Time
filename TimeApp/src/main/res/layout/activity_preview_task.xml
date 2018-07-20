@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.PreviewTaskActivity">
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="55pt"
-        android:layout_marginTop="59pt"
-        android:overScrollMode="never"
-        android:scrollbars="none"
+
+    <include
+        layout="@layout/layout_task_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/layout_option"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include layout="@layout/layout_task_card"/>
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
 
     <LinearLayout
         android:id="@+id/layout_option"
@@ -32,6 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
+
         <TextView
             android:id="@+id/tv_delete"
             android:layout_width="0dp"
@@ -41,7 +37,8 @@
             android:onClick="onClick"
             android:text="删除"
             android:textColor="#EE386D"
-            android:textSize="18pt"/>
+            android:textSize="18pt" />
+
         <TextView
             android:id="@+id/tv_top"
             android:layout_width="0dp"
@@ -51,7 +48,8 @@
             android:onClick="onClick"
             android:text="置顶"
             android:textColor="#EE386D"
-            android:textSize="18pt"/>
+            android:textSize="18pt" />
+
         <TextView
             android:id="@+id/tv_archiving"
             android:layout_width="0dp"
@@ -61,6 +59,6 @@
             android:onClick="onClick"
             android:text="归档"
             android:textColor="#EE386D"
-            android:textSize="18pt"/>
+            android:textSize="18pt" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="270pt"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     app:cardCornerRadius="6pt">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_card_root"
-        android:layout_width="match_parent"
+        android:layout_width="270pt"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/tv_content_hint"

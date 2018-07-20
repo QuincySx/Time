@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:id="@+id/layout_drawer"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="#FFFFFF"
-                                        tools:context=".ui.main.MainActivity"
-                                        tools:openDrawer="start">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ui.main.MainActivity"
+    tools:openDrawer="start">
 
     <android.support.v7.widget.CardView
         android:id="@+id/layout_content"
@@ -16,16 +16,17 @@
         app:cardElevation="70pt"
         app:cardUseCompatPadding="false">
 
-        <LinearLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F9F9F9"
-            android:orientation="vertical">
+            android:background="#F9F9F9">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_max_title"
                 android:layout_width="match_parent"
                 android:layout_height="157pt"
                 android:background="#ffffffff"
+                android:elevation="1pt"
                 android:paddingTop="23pt">
 
                 <ImageView
@@ -34,9 +35,9 @@
                     android:layout_height="80pt"
                     android:layout_marginLeft="31pt"
                     android:layout_marginTop="30pt"
+                    android:background="@drawable/ic_weather_qing"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_weather_cloudy_clear"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_temperature"
@@ -44,44 +45,100 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="43pt"
                     android:layout_marginTop="39pt"
-                    android:text="26℃"
                     android:textColor="#484848"
                     android:textSize="36pt"
                     app:layout_constraintLeft_toRightOf="@id/img_weather"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="26℃" />
 
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10pt"
-                    android:text="5月11日"
                     android:textColor="#484848"
                     android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/img_weather"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+                    tools:text="5月11日" />
 
                 <TextView
                     android:id="@+id/tv_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10pt"
-                    android:text="周六"
                     android:textColor="#484848"
                     android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/tv_date"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+                    tools:text="周六" />
 
                 <TextView
                     android:id="@+id/tv_weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10pt"
-                    android:text="晴"
                     android:textColor="#484848"
                     android:textSize="14pt"
                     app:layout_constraintLeft_toRightOf="@id/tv_week"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_temperature"
+                    tools:text="晴" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_min_title"
+                android:layout_width="match_parent"
+                android:layout_height="73pt"
+                android:alpha="0"
+                android:background="#ffffffff"
+                android:elevation="1pt"
+                android:paddingTop="23pt">
+
+                <ImageView
+                    android:id="@+id/img_min_weather"
+                    android:layout_width="32pt"
+                    android:layout_height="32pt"
+                    android:layout_marginLeft="17pt"
+                    android:background="@drawable/ic_weather_qing"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_min_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/img_min_weather"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="晴 · 26℃" />
+
+                <TextView
+                    android:id="@+id/tv_min_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_min_week"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5月11日" />
+
+                <TextView
+                    android:id="@+id/tv_min_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20pt"
+                    android:textColor="#484848"
+                    android:textSize="14pt"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="周六" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v4.view.ViewPager
@@ -90,8 +147,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="26pt"
                 android:overScrollMode="never"
-                android:scrollbars="none"/>
-        </LinearLayout>
+                android:scrollbars="none"
+                app:layout_behavior=".ui.main.Behavior" />
+        </android.support.design.widget.CoordinatorLayout>
     </android.support.v7.widget.CardView>
 
     <LinearLayout
@@ -121,7 +179,7 @@
                     android:onClick="onDrawerClick"
                     android:text="归档夹"
                     android:textColor="#484848"
-                    android:textSize="18pt"/>
+                    android:textSize="18pt" />
 
                 <TextView
                     android:id="@+id/tv_recycle_bin"
@@ -132,7 +190,7 @@
                     android:onClick="onDrawerClick"
                     android:text="回收站"
                     android:textColor="#484848"
-                    android:textSize="18pt"/>
+                    android:textSize="18pt" />
 
                 <TextView
                     android:id="@+id/tv_about"
@@ -143,7 +201,7 @@
                     android:onClick="onDrawerClick"
                     android:text="关于"
                     android:textColor="#484848"
-                    android:textSize="18pt"/>
+                    android:textSize="18pt" />
 
                 <RadioGroup
                     android:id="@+id/rg_display"
@@ -163,7 +221,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="全部显示"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_reciprocal"
@@ -177,7 +235,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅倒数日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_accumulative"
@@ -191,7 +249,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="仅累计日"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
                 </RadioGroup>
 
                 <RadioGroup
@@ -212,7 +270,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="默认排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_time"
@@ -226,7 +284,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="日期排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
 
                     <RadioButton
                         android:id="@+id/rb_color"
@@ -240,7 +298,7 @@
                         android:stateListAnimator="@animator/selector_main_slip_item"
                         android:text="颜色排序"
                         android:textColor="@color/selector_main_slip_item_color"
-                        android:textSize="14pt"/>
+                        android:textSize="14pt" />
                 </RadioGroup>
             </LinearLayout>
         </ScrollView>

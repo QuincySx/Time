@@ -17,9 +17,15 @@ import com.smallraw.time.R
 import com.smallraw.time.base.BaseTitleBarActivity
 import com.smallraw.time.base.RudenessScreenHelper
 import com.smallraw.time.db.entity.MemorialEntity
+import com.smallraw.time.entity.Weather
+import com.smallraw.time.model.BaseCallback
+import com.smallraw.time.model.WeatherModel
 import com.smallraw.time.ui.taskInfo.TaskInfoActivity
 import com.smallraw.time.utils.dateParse
+import com.smallraw.time.utils.getWeekOfDate
+import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class AddTaskActivity : BaseTitleBarActivity() {
@@ -98,6 +104,18 @@ class AddTaskActivity : BaseTitleBarActivity() {
         val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, RudenessScreenHelper.pt2px(this, 35F).toInt())
         rightView.layoutParams = layoutParams
         addRightView(rightView)
+        tv_date.text = monthDayFormat(Date())
+        tv_week.text = getWeekOfDate(this, Date())
+
+        WeatherModel().getWeatherCache(object : BaseCallback<Weather> {
+            override fun onSuccess(data: Weather) {
+                tv_weather.text = "${data.cond_txt} · ${data.tmp}°C"
+            }
+
+            override fun onError(e: Exception) {
+                tv_weather.text = "暂无 · 0°C"
+            }
+        })
     }
 
     override fun selfTitleBackgroundColor(): Int {
