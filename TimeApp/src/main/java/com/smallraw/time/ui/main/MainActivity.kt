@@ -29,6 +29,7 @@ import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import android.graphics.Point
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.ViewDragHelper
@@ -46,7 +47,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setDrawerLeftEdgeSize(layout_drawer, 0.33f)
+        setDrawerLeftEdgeSize(layout_drawer, 0.16f)
 
         initDrawerView()
         initViewPager()
@@ -95,7 +96,7 @@ class MainActivity : BaseActivity() {
         viewPagerAdapter.addFragment(mTaskListFragment)
         viewPagerAdapter.addFragment(AddTaskOptionFragment())
         view_pager.adapter = viewPagerAdapter
-        view_pager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -105,11 +106,11 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                when(position){
-                    0->{
+                when (position) {
+                    0 -> {
                         layout_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     }
-                    else->{
+                    else -> {
                         layout_drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     }
                 }
@@ -155,16 +156,18 @@ class MainActivity : BaseActivity() {
 
     private fun setWeatherData(data: Weather?) {
         if (data == null) {
-            img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            img_weather.setBackgroundResource(R.drawable.ic_weather_qing)
             tv_temperature.text = "0°C"
             tv_weather.text = "暂无"
-            img_min_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            img_min_weather.setBackgroundResource(R.drawable.ic_weather_qing)
             tv_min_temperature.text = "暂无 · 0°C"
         } else {
-            img_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            val weatherImage = WeatherModel.getWeatherImage(data.cond_code)
+//            val weatherImage = R.drawable.ic_weather_qing
+            img_weather.setBackgroundResource(weatherImage)
             tv_temperature.text = "${data.tmp}°C"
             tv_weather.text = data.cond_txt
-            img_min_weather.setBackgroundResource(R.drawable.ic_weather_cloudy_clear)
+            img_min_weather.setBackgroundResource(weatherImage)
             tv_min_temperature.text = "${data.cond_txt} · ${data.tmp}°C"
         }
     }

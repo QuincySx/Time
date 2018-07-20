@@ -35,9 +35,9 @@
                     android:layout_height="80pt"
                     android:layout_marginLeft="31pt"
                     android:layout_marginTop="30pt"
+                    android:src="@drawable/ic_weather_qing"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_weather_cloudy_clear" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_temperature"
@@ -99,10 +99,10 @@
                     android:layout_width="32pt"
                     android:layout_height="32pt"
                     android:layout_marginLeft="17pt"
+                    android:src="@drawable/ic_weather_qing"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_weather_cloudy_clear" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_min_temperature"
