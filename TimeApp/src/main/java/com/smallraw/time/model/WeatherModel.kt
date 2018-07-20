@@ -13,6 +13,8 @@ public class WeatherModel() {
     companion object {
         val WeatherNow = "WeatherNow"
 
+        val exception = App.getInstance().getAppExecutors()
+
         @JvmStatic
         @DrawableRes
         fun getWeatherWhiteImage(state: String): Int {
@@ -140,8 +142,7 @@ public class WeatherModel() {
         }
     }
 
-    fun getWertherNow(callback: BaseCallback<Weather>) {
-        val exception = App.getInstance().getAppExecutors()
+    fun getWeatherNow(callback: BaseCallback<Weather>) {
         exception.networkIO().execute {
             try {
                 val locationModel = LocationModel()
@@ -154,16 +155,28 @@ public class WeatherModel() {
                         callback.onSuccess(weatherNow)
                     }
                 } else {
-                    val get = ConfigModel.get(WeatherNow)
-                    if (get != "") {
-                        val weather = JSON.toJSON(get) as Weather
-                        exception.mainThread().execute {
-                            callback.onSuccess(weather)
-                        }
-                    } else {
-                        exception.mainThread().execute {
-                            callback.onError(Exception())
-                        }
+                    getWeatherCache(callback)
+                }
+            } catch (e: Exception) {
+                exception.mainThread().execute {
+                    callback.onError(e)
+                }
+            }
+        }
+    }
+
+    fun getWeatherCache(callback: BaseCallback<Weather>) {
+        exception.networkIO().execute {
+            try {
+                val get = ConfigModel.get(WeatherNow)
+                if (get != "") {
+                    val weather = JSON.parseObject(get, Weather::class.java)
+                    exception.mainThread().execute {
+                        callback.onSuccess(weather)
+                    }
+                } else {
+                    exception.mainThread().execute {
+                        callback.onError(Exception())
                     }
                 }
             } catch (e: Exception) {

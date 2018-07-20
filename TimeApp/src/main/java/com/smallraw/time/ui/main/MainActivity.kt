@@ -29,11 +29,8 @@ import com.smallraw.time.utils.monthDayFormat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import android.graphics.Point
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.ViewDragHelper
-import android.view.MotionEvent
 
 
 class MainActivity : BaseActivity() {
@@ -143,7 +140,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initWeatherNow() {
-        WeatherModel().getWertherNow(object : BaseCallback<Weather> {
+        WeatherModel().getWeatherNow(object : BaseCallback<Weather> {
             override fun onSuccess(data: Weather) {
                 setWeatherData(data)
             }
